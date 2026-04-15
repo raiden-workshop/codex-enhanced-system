@@ -1,0 +1,32 @@
+name: knowledge-base-health
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  knowledge-base-health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run knowledge-base regression tests
+        run: python3 -m unittest knowledge-base/tests/test_kb_query.py
+
+      - name: Run knowledge-base maintenance health check
+        run: python3 knowledge-base/kb maintain --json
+
+      - name: Run knowledge-base drift review
+        run: python3 knowledge-base/kb drift-review --json
