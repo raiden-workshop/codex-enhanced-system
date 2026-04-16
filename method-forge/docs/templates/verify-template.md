@@ -4,6 +4,8 @@
 
 - 
 
+Use this check to verify the smallest practical result, and call out any assumptions that were not fully resolved before implementation.
+
 ## Status
 
 | Field | Value |

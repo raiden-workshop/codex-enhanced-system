@@ -4,6 +4,8 @@
 
 - 
 
+Keep the spec small and explicit: think before filling it out, choose the simplest stable scope, and only include what the change truly requires.
+
 ## User Value
 
 - 
