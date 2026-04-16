@@ -32,6 +32,13 @@ python3 ~/.codex/scripts/refresh_memory.py --workspace-root "$(git rev-parse --s
 - `global` 只保留跨 workspace 稳定成立的长期记忆。
 - 先升 `workspace`，再按规则升 `global`。
 
+## Coding Principles
+
+- Think before coding: surface ambiguity and state assumptions when the risk is real.
+- Simplicity first: choose the smallest stable solution.
+- Surgical changes: touch only what the request requires.
+- Goal-driven execution: define success criteria up front, then verify the result.
+
 ## Method Forge Autonomous Coding
 
 - 当用户表达“开始落地代码”“开始实现”“开始写代码”“继续写代码”“进入实现阶段”等实现意图时，默认进入 `method-forge` autonomous mode，除非用户明确要求不要自动、先别写代码或只做方案。
