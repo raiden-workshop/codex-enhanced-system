@@ -7,5 +7,6 @@ Conventions:
 - Global memory root is `~/.codex/memory/`
 - The workspace memory node will be created under `~/.codex/memory/workspaces/` on first refresh
 - Before complex work, read shared guides first, then the workspace memory node if it already exists
+- Apply the global coding principles: think before coding, simplicity first, surgical changes, and goal-driven execution.
 - After meaningful work, run:
   - `python3 ~/.codex/scripts/refresh_memory.py --workspace-root "__WORKSPACE_ROOT__"`
