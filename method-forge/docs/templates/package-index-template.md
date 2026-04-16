@@ -1,5 +1,7 @@
 # Package Index
 
+Keep the index small and explicit so the package can be understood at a glance, without extra process or duplicated truth.
+
 ## Change
 
 - change_id:

@@ -10,6 +10,8 @@ activation rules 用于把用户的自然语言意图自动映射到 `method-for
 - 默认进入 `method-forge` autonomous mode
 - `method-forge-execute` 作为 autonomous 的默认内层执行引擎
 
+这些触发规则应保持简单稳定，只覆盖必须的入口，不额外扩展成新的流程体系。
+
 ## 2. 触发优先级
 
 ### 2.1 明确指定 `method-forge`

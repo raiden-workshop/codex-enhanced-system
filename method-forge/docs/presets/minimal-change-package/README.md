@@ -1,5 +1,7 @@
 # Minimal Change Package Preset
 
+This preset is intentionally small: keep the package focused, explicit, and easy to verify.
+
 ## Purpose
 
 这是一个给消费方 workspace 使用的轻量 preset 入口。

@@ -1,5 +1,7 @@
 # Consumer AGENTS Rules Snippet
 
+Keep these rules minimal and stable: think before adding new guidance, keep the scope small, and verify the result with the actual workflow artifacts.
+
 - 所有非闲聊、非纯问答请求默认先产出 `intake.md`。
 - 中等及以上复杂度、跨文件、边界不清或风险较高的请求，必须先走 `spec -> plan -> plan-review -> tasks` 再进入实现。
 - 任何实质性变更完成后，必须补 `verify.md`；“代码写完了”不等于“交付完成了”。

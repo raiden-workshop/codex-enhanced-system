@@ -1,5 +1,7 @@
 # Autonomous Cycle Report
 
+Use this report to record the smallest meaningful cycle result, the assumptions left open, and any change in progress or guard status.
+
 ## Cycle
 
 - cycle_timestamp:

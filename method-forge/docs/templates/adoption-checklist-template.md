@@ -1,5 +1,7 @@
 # Adoption Checklist
 
+Keep the adopted workflow simple, explicit, and tightly scoped: think before adding rules, change only what is needed, and verify each required artifact.
+
 ## Workspace Setup
 
 - [ ] `AGENTS.md` 已写入入口、质量门和边界硬规则

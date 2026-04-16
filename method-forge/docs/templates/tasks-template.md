@@ -1,5 +1,7 @@
 # Tasks
 
+Break work into the smallest executable tasks that can be verified independently.
+
 ## Task List
 
 ### T1

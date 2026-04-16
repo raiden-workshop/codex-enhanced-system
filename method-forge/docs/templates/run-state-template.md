@@ -1,5 +1,7 @@
 # Run State
 
+Keep the run state honest and minimal: record the current truth, the next safe action, and any blocking assumption.
+
 ## Task
 
 - task_id:

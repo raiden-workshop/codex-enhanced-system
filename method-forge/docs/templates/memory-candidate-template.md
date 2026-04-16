@@ -1,5 +1,7 @@
 # Memory Candidate
 
+Only capture a candidate when the result is already verified, stable, and worth reusing without adding extra scope.
+
 ## Candidate Summary
 
 - summary:

@@ -1,5 +1,7 @@
 # Plan
 
+Keep the plan simple, explicit, and implementation-ready; add only the details needed to execute safely.
+
 ## Architecture
 
 - 
