@@ -9,6 +9,7 @@
   - `instructions/repo/GUIDE.md`
   - `memories/MEMORY.md`
   - `runtime/active_context.md`
+- When you edit workspace docs or memory files, think before editing, keep changes simple, touch only what is required, and verify the result.
 - After meaningful work, refresh memory with:
   - `python3 ~/.codex/scripts/refresh_memory.py --workspace-root "__WORKSPACE_ROOT__"`
 - Do not create or maintain a second local memory system in this workspace unless the user explicitly asks for one.

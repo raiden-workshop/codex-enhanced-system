@@ -29,5 +29,5 @@ If you see older or external Codex docs mention `$HOME/.agents/skills`, treat th
   - `method-forge/`
 - Knowledge-base runtime, docs, and CLI entry have moved to `/Users/wz/project/knowledge-base`
 - The bootstrap script only installs skills. It does not overwrite existing Codex memory data.
+- Keep the shared coding principles aligned across the stack: think before coding, simplicity first, surgical changes, and goal-driven verification.
 - If you want the global memory system refreshed for a workspace, use the memory-system refresh workflow in `memory-system/`.
-
