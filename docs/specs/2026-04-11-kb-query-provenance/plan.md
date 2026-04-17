@@ -2,8 +2,8 @@
 
 ## Architecture / 架构
 
-- 在 `knowledge-base/kb` 内直接增加 query 子命令，复用现有 page 解析、canonical page 枚举和 frontmatter 结构。
-- Add the query subcommand directly inside `knowledge-base/kb`, reusing existing page parsing, canonical-page enumeration, and frontmatter structures.
+- 在 `/Users/wz/project/knowledge-base/kb` 内直接增加 query 子命令，复用现有 page 解析、canonical page 枚举和 frontmatter 结构。
+- Add the query subcommand directly inside `/Users/wz/project/knowledge-base/kb`, reusing existing page parsing, canonical-page enumeration, and frontmatter structures.
 
 ## Data Flow / 数据流
 
@@ -18,8 +18,8 @@
 
 ## Touch Points / 触点
 
-- files_or_modules: `knowledge-base/kb`, `knowledge-base/tests/test_kb_query.py`
-- docs_to_update: `knowledge-base/KB_COMMANDS.md`, `docs/specs/2026-04-11-kb-query-provenance/*`
+- files_or_modules: `/Users/wz/project/knowledge-base/kb`, `/Users/wz/project/knowledge-base/tests/test_kb_query.py`
+- docs_to_update: `/Users/wz/project/knowledge-base/KB_COMMANDS.md`, `docs/specs/2026-04-11-kb-query-provenance/*`
 - external_inputs: 当前 canonical pages 与其 frontmatter
 
 ## Implementation Order / 实现顺序
@@ -37,9 +37,9 @@
 
 ## Test Strategy / 测试策略
 
-- unit_or_local_checks: `python3 -m unittest knowledge-base/tests/test_kb_query.py`
-- integration_or_manual_checks: `python3 knowledge-base/kb query "formal memory" --limit 3`
-- integration_or_manual_checks_2: `python3 knowledge-base/kb maintain`
+- unit_or_local_checks: `python3 -m unittest /Users/wz/project/knowledge-base/tests/test_kb_query.py`
+- integration_or_manual_checks: `python3 /Users/wz/project/knowledge-base/kb query "formal memory" --limit 3`
+- integration_or_manual_checks_2: `python3 /Users/wz/project/knowledge-base/kb maintain`
 - failure_cases_to_cover: 无后缀短引用、`--json` 输出、`--type` 过滤、`source_refs` 目标分类
 
 ## Rollout Strategy / 发布策略

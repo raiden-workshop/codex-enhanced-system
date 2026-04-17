@@ -1,7 +1,7 @@
 # Plan / 计划
 
-1. 在 `knowledge-base/kb` 中拆分 `match_score` 与最终排序分，并加入类型、状态、质量、locale 变体修正。
-   In `knowledge-base/kb`, split `match_score` from the final ranking score and add type, status, quality, and locale-variant adjustments.
+1. 在 `/Users/wz/project/knowledge-base/kb` 中拆分 `match_score` 与最终排序分，并加入类型、状态、质量、locale 变体修正。
+   In `/Users/wz/project/knowledge-base/kb`, split `match_score` from the final ranking score and add type, status, quality, and locale-variant adjustments.
 
 2. 为 query 结果增加保守 dedupe，只折叠明显的 locale mirror 结果。
    Add conservative dedupe for query results and collapse only obvious locale-mirror duplicates.

@@ -17,7 +17,7 @@
 | plan | `done` | `docs/specs/2026-04-11-kb-maintain-json/plan.md` |
 | plan-review | `done` | `docs/specs/2026-04-11-kb-maintain-json/plan-review.md` |
 | tasks | `done` | `docs/specs/2026-04-11-kb-maintain-json/tasks.md` |
-| implementation | `done` | `knowledge-base/kb`, `knowledge-base/tests/test_kb_query.py`, `knowledge-base/KB_COMMANDS.md` |
+| implementation | `done` | `/Users/wz/project/knowledge-base/kb`, `/Users/wz/project/knowledge-base/tests/test_kb_query.py`, `/Users/wz/project/knowledge-base/KB_COMMANDS.md` |
 | verify | `done` | `docs/specs/2026-04-11-kb-maintain-json/verify.md` |
 | code-review | `not-applicable` | |
 | memory-candidate | `not-applicable` | |

@@ -3,9 +3,9 @@
 ## Commands / 验证命令
 
 ```bash
-python3 <repo-root>/knowledge-base/kb maintain --json
-python3 <repo-root>/knowledge-base/kb drift-review --json
-python3 -m unittest <repo-root>/knowledge-base/tests/test_kb_query.py
+python3 /Users/wz/project/knowledge-base/kb maintain --json
+python3 /Users/wz/project/knowledge-base/kb drift-review --json
+python3 -m unittest /Users/wz/project/knowledge-base/tests/test_kb_query.py
 git diff --check -- <repo-root>/.github/workflows/knowledge-base-health.yml <repo-root>/docs/specs/2026-04-11-autonomous-heartbeat-ci-closeout
 sed -n '1,240p' ~/.codex/automations/method-forge-continue/automation.toml
 ```

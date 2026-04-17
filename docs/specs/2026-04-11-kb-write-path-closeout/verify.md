@@ -3,13 +3,13 @@
 ## Commands / 验证命令
 
 ```bash
-python3 -m unittest <repo-root>/knowledge-base/tests/test_kb_query.py
-python3 <repo-root>/knowledge-base/kb maintain
-python3 <repo-root>/knowledge-base/kb drift-review
-python3 <repo-root>/knowledge-base/kb log maintenance --summary "metadata sync check" --note "Dry-run validation for log updated_at semantics." --dry-run
-python3 <repo-root>/knowledge-base/kb add concept --slug temp-sanity-check --title "Temp Sanity Check" --source-ref wiki/sources/source-codex-memory-kit-readme.md --write-log --dry-run
-python3 <repo-root>/knowledge-base/kb delete <repo-root>/knowledge-base/wiki/reports/report-drift-review-2026-04-11.md --write-log --dry-run
-git diff --check -- <repo-root>/knowledge-base/kb <repo-root>/knowledge-base/tests/test_kb_query.py <repo-root>/knowledge-base/KB_COMMANDS.md <repo-root>/docs/specs/2026-04-11-kb-write-path-closeout
+python3 -m unittest /Users/wz/project/knowledge-base/tests/test_kb_query.py
+python3 /Users/wz/project/knowledge-base/kb maintain
+python3 /Users/wz/project/knowledge-base/kb drift-review
+python3 /Users/wz/project/knowledge-base/kb log maintenance --summary "metadata sync check" --note "Dry-run validation for log updated_at semantics." --dry-run
+python3 /Users/wz/project/knowledge-base/kb add concept --slug temp-sanity-check --title "Temp Sanity Check" --source-ref wiki/sources/source-codex-memory-kit-readme.md --write-log --dry-run
+python3 /Users/wz/project/knowledge-base/kb delete /Users/wz/project/knowledge-base/wiki/reports/report-drift-review-2026-04-11.md --write-log --dry-run
+git diff --check -- /Users/wz/project/knowledge-base/kb /Users/wz/project/knowledge-base/tests/test_kb_query.py /Users/wz/project/knowledge-base/KB_COMMANDS.md <repo-root>/docs/specs/2026-04-11-kb-write-path-closeout
 python3 ~/.codex/scripts/refresh_memory.py --workspace-root <repo-root>
 ```
 

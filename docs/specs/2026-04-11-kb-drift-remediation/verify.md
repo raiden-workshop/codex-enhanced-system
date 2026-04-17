@@ -3,11 +3,11 @@
 ## Commands / 验证命令
 
 ```bash
-python3 <repo-root>/knowledge-base/kb drift-review
-python3 <repo-root>/knowledge-base/kb drift-review --json
-python3 <repo-root>/knowledge-base/kb maintain
-python3 <repo-root>/knowledge-base/kb maintain --json
-git diff --check -- <repo-root>/knowledge-base/wiki/concepts/concept-codex-native-memory-governance.md <repo-root>/knowledge-base/wiki/concepts/concept-verification-evidence-gate.md <repo-root>/knowledge-base/wiki/entities/entity-codex-memory-kit.md <repo-root>/knowledge-base/wiki/syntheses/synthesis-codex-native-memory-governance-baseline.md <repo-root>/knowledge-base/wiki/syntheses/synthesis-upstream-integration-rollout.md <repo-root>/knowledge-base/wiki/syntheses/synthesis-upstream-reviewer-packet.md <repo-root>/knowledge-base/wiki/hot.md <repo-root>/knowledge-base/wiki/index.md <repo-root>/knowledge-base/wiki/overview.md <repo-root>/knowledge-base/wiki/log.md <repo-root>/knowledge-base/wiki/reports/report-drift-review-2026-04-11.md <repo-root>/docs/specs/2026-04-11-kb-drift-remediation
+python3 /Users/wz/project/knowledge-base/kb drift-review
+python3 /Users/wz/project/knowledge-base/kb drift-review --json
+python3 /Users/wz/project/knowledge-base/kb maintain
+python3 /Users/wz/project/knowledge-base/kb maintain --json
+git diff --check -- /Users/wz/project/knowledge-base/wiki/concepts/concept-codex-native-memory-governance.md /Users/wz/project/knowledge-base/wiki/concepts/concept-verification-evidence-gate.md /Users/wz/project/knowledge-base/wiki/entities/entity-codex-memory-kit.md /Users/wz/project/knowledge-base/wiki/syntheses/synthesis-codex-native-memory-governance-baseline.md /Users/wz/project/knowledge-base/wiki/syntheses/synthesis-upstream-integration-rollout.md /Users/wz/project/knowledge-base/wiki/syntheses/synthesis-upstream-reviewer-packet.md /Users/wz/project/knowledge-base/wiki/hot.md /Users/wz/project/knowledge-base/wiki/index.md /Users/wz/project/knowledge-base/wiki/overview.md /Users/wz/project/knowledge-base/wiki/log.md /Users/wz/project/knowledge-base/wiki/reports/report-drift-review-2026-04-11.md <repo-root>/docs/specs/2026-04-11-kb-drift-remediation
 python3 ~/.codex/scripts/refresh_memory.py --workspace-root <repo-root>
 ```
 

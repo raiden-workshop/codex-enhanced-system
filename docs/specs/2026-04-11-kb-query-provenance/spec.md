@@ -47,16 +47,16 @@
 
 ## Acceptance Criteria / 验收标准
 
-- `python3 knowledge-base/kb query "formal memory"` 可以返回排序结果。
-- `python3 knowledge-base/kb query "formal memory"` returns ranked results.
+- `python3 /Users/wz/project/knowledge-base/kb query "formal memory"` 可以返回排序结果。
+- `python3 /Users/wz/project/knowledge-base/kb query "formal memory"` returns ranked results.
 - 结果里包含 `matched_fields`、`snippet`、`source_refs`、`related`。
 - Results include `matched_fields`, `snippet`, `source_refs`, and `related`.
 - `--json` 输出可被机器读取。
 - `--json` output is machine-readable.
 - 无后缀短引用在 provenance 解析中可正确补成 `.md`。
 - Extensionless shorthand references are resolved to `.md` correctly in provenance handling.
-- `python3 knowledge-base/kb maintain` 在当前仓库上可通过，并能检查 `source_refs` 的目标位置是否合法。
-- `python3 knowledge-base/kb maintain` passes on the current repository and validates whether `source_refs` point to valid support locations.
+- `python3 /Users/wz/project/knowledge-base/kb maintain` 在当前仓库上可通过，并能检查 `source_refs` 的目标位置是否合法。
+- `python3 /Users/wz/project/knowledge-base/kb maintain` passes on the current repository and validates whether `source_refs` point to valid support locations.
 - 新增测试覆盖查询和引用解析。
 - New tests cover both query behavior and reference resolution.
 

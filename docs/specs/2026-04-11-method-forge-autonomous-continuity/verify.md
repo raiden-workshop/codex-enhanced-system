@@ -3,8 +3,8 @@
 ## Commands / 验证命令
 
 ```bash
-rg -n "micro-slice|微切片|下一安全切片|top-level task|keep it `running`" <repo-root>/method-forge <repo-root>/knowledge-base/AGENTS.md <repo-root>/memory-system/AGENTS.md
-git diff --check -- <repo-root>/method-forge/AGENTS.md <repo-root>/method-forge/docs/method/autonomous-execution.md <repo-root>/method-forge/docs/method/activation-rules.md <repo-root>/method-forge/docs/method/resume-rules.md <repo-root>/method-forge/docs/templates/autonomous-heartbeat-prompt-template.md <repo-root>/method-forge/docs/templates/consumer-agents-rules-template.md <repo-root>/method-forge/skills/method-forge-autonomous-execution/SKILL.md <repo-root>/knowledge-base/AGENTS.md <repo-root>/memory-system/AGENTS.md <repo-root>/docs/specs/2026-04-11-method-forge-autonomous-continuity
+rg -n "micro-slice|微切片|下一安全切片|top-level task|keep it `running`" <repo-root>/method-forge /Users/wz/project/knowledge-base/AGENTS.md <repo-root>/memory-system/AGENTS.md
+git diff --check -- <repo-root>/method-forge/AGENTS.md <repo-root>/method-forge/docs/method/autonomous-execution.md <repo-root>/method-forge/docs/method/activation-rules.md <repo-root>/method-forge/docs/method/resume-rules.md <repo-root>/method-forge/docs/templates/autonomous-heartbeat-prompt-template.md <repo-root>/method-forge/docs/templates/consumer-agents-rules-template.md <repo-root>/method-forge/skills/method-forge-autonomous-execution/SKILL.md /Users/wz/project/knowledge-base/AGENTS.md <repo-root>/memory-system/AGENTS.md <repo-root>/docs/specs/2026-04-11-method-forge-autonomous-continuity
 python3 ~/.codex/scripts/refresh_memory.py --workspace-root <repo-root>
 ```
 

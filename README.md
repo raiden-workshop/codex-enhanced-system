@@ -2,7 +2,7 @@
 
 This repository consolidates the three Codex support systems into one place:
 
-- `knowledge-base/` for durable reference and memory-candidate content
+- `knowledge-base` has been split out to the standalone repo at `/Users/wz/project/knowledge-base`
 - `memory-system/` for global memory refresh and governance
 - `method-forge/` for implementation workflows, orchestration, and autonomous execution
 
@@ -12,7 +12,9 @@ The intended priority order is:
 2. This repository's root guidance
 3. The subworkspace guidance inside each system
 
-Use the subdirectory that matches the task. If a task spans systems, keep the work in this repo and follow the narrowest applicable instructions first.
+Keep the shared coding principles aligned across the guides and templates: think before coding, simplicity first, surgical changes, and goal-driven verification.
+
+Use the subdirectory that matches the task. If the task is about the knowledge base itself, switch to `/Users/wz/project/knowledge-base`; it is no longer a live subdirectory workflow inside this repo.
 
 ## Install
 
