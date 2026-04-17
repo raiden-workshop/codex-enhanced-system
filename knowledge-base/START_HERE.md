@@ -5,4 +5,3 @@
 请改用：
 
 - `/Users/wz/project/knowledge-base`
-

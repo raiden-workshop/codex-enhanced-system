@@ -10,4 +10,3 @@
 
 1. 切到 `/Users/wz/project/knowledge-base`
 2. 读取新仓库里的 `AGENTS.md`、`README.md`、`START_HERE.md`
-
