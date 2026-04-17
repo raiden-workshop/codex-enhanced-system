@@ -17,7 +17,7 @@
 | plan | `done` | `docs/specs/2026-04-11-method-forge-autonomous-continuity/plan.md` |
 | plan-review | `done` | `docs/specs/2026-04-11-method-forge-autonomous-continuity/plan-review.md` |
 | tasks | `done` | `docs/specs/2026-04-11-method-forge-autonomous-continuity/tasks.md` |
-| implementation | `done` | `method-forge/docs/method/*.md`, `method-forge/skills/method-forge-autonomous-execution/SKILL.md`, `method-forge/AGENTS.md`, `method-forge/docs/templates/consumer-agents-rules-template.md`, `knowledge-base/AGENTS.md`, `memory-system/AGENTS.md` |
+| implementation | `done` | `method-forge/docs/method/*.md`, `method-forge/skills/method-forge-autonomous-execution/SKILL.md`, `method-forge/AGENTS.md`, `method-forge/docs/templates/consumer-agents-rules-template.md`, `/Users/wz/project/knowledge-base/AGENTS.md`, `memory-system/AGENTS.md` |
 | verify | `done` | `docs/specs/2026-04-11-method-forge-autonomous-continuity/verify.md` |
 | code-review | `not-applicable` | |
 | memory-candidate | `not-applicable` | |

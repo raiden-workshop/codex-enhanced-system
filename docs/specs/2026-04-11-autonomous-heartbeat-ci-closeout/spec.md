@@ -3,16 +3,16 @@
 ## Scope / 范围
 
 - 为仓库新增一个 GitHub Actions workflow，至少覆盖：
-  - `knowledge-base/tests/test_kb_query.py`
-  - `knowledge-base/kb maintain --json`
-  - `knowledge-base/kb drift-review --json`
+  - `/Users/wz/project/knowledge-base/tests/test_kb_query.py`
+  - `/Users/wz/project/knowledge-base/kb maintain --json`
+  - `/Users/wz/project/knowledge-base/kb drift-review --json`
 - 为当前线程创建一个 active heartbeat automation，用于恢复或继续 `method-forge` autonomous run。
 - 记录实际验证结果与最终状态。
 
 - Add one GitHub Actions workflow that covers at least:
-  - `knowledge-base/tests/test_kb_query.py`
-  - `knowledge-base/kb maintain --json`
-  - `knowledge-base/kb drift-review --json`
+  - `/Users/wz/project/knowledge-base/tests/test_kb_query.py`
+  - `/Users/wz/project/knowledge-base/kb maintain --json`
+  - `/Users/wz/project/knowledge-base/kb drift-review --json`
 - Create one active heartbeat automation for the current thread to resume or continue `method-forge` autonomous runs.
 - Record the actual verification results and final status.
 

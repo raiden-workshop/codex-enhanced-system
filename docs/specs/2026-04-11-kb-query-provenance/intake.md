@@ -24,15 +24,15 @@
 
 - primary_goal: 让知识库先具备一个可用的查询入口，并把 `source_refs` / `related` 作为第一层 provenance 暴露出来。
 - primary_goal_en: Give the knowledge base a usable query entry point and expose `source_refs` / `related` as the first layer of provenance.
-- success_signal: 可以直接运行 `python3 knowledge-base/kb query ...` 拿到排序结果、摘要片段和出处字段。
-- success_signal_en: `python3 knowledge-base/kb query ...` returns ranked results, snippets, and provenance fields.
+- success_signal: 可以直接运行 `python3 /Users/wz/project/knowledge-base/kb query ...` 拿到排序结果、摘要片段和出处字段。
+- success_signal_en: `python3 /Users/wz/project/knowledge-base/kb query ...` returns ranked results, snippets, and provenance fields.
 
 ## Constraints And Signals / 约束与信号
 
 - hard_constraints: 不引入外部依赖；保留 `raw/` 与 `wiki/` 的现有边界；不破坏现有命令。
 - hard_constraints_en: No new external dependencies; preserve the current `raw/` and `wiki/` boundary; do not break existing commands.
-- dependencies: 现有 `knowledge-base/kb` CLI、canonical page frontmatter、`source_refs` 与 `related` 字段。
-- dependencies_en: The existing `knowledge-base/kb` CLI, canonical page frontmatter, and the `source_refs` / `related` fields.
+- dependencies: 现有 `/Users/wz/project/knowledge-base/kb` CLI、canonical page frontmatter、`source_refs` 与 `related` 字段。
+- dependencies_en: The existing `/Users/wz/project/knowledge-base/kb` CLI, canonical page frontmatter, and the `source_refs` / `related` fields.
 - known_risks: 前端没有统一 query contract；现有 `related` 字段存在无后缀短引用，解析时需要兼容。
 - known_risks_en: There is no existing query contract yet; current `related` fields use extensionless shorthand references that must be resolved compatibly.
 

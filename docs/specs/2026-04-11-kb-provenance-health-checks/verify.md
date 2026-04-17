@@ -3,9 +3,9 @@
 ## Commands / 验证命令
 
 ```bash
-python3 -m unittest <repo-root>/knowledge-base/tests/test_kb_query.py
-python3 <repo-root>/knowledge-base/kb maintain
-git diff --check -- <repo-root>/knowledge-base/kb <repo-root>/knowledge-base/tests/test_kb_query.py <repo-root>/knowledge-base/KB_COMMANDS.md <repo-root>/docs/specs/2026-04-11-kb-provenance-health-checks
+python3 -m unittest /Users/wz/project/knowledge-base/tests/test_kb_query.py
+python3 /Users/wz/project/knowledge-base/kb maintain
+git diff --check -- /Users/wz/project/knowledge-base/kb /Users/wz/project/knowledge-base/tests/test_kb_query.py /Users/wz/project/knowledge-base/KB_COMMANDS.md <repo-root>/docs/specs/2026-04-11-kb-provenance-health-checks
 python3 ~/.codex/scripts/refresh_memory.py --workspace-root <repo-root>
 ```
 

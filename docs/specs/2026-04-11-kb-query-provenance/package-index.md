@@ -17,7 +17,7 @@
 | plan | `done` | `docs/specs/2026-04-11-kb-query-provenance/plan.md` |
 | plan-review | `done` | `docs/specs/2026-04-11-kb-query-provenance/plan-review.md` |
 | tasks | `done` | `docs/specs/2026-04-11-kb-query-provenance/tasks.md` |
-| implementation | `done` | `knowledge-base/kb`, `knowledge-base/tests/test_kb_query.py` |
+| implementation | `done` | `/Users/wz/project/knowledge-base/kb`, `/Users/wz/project/knowledge-base/tests/test_kb_query.py` |
 | verify | `done` | `docs/specs/2026-04-11-kb-query-provenance/verify.md` |
 | code-review | `not-applicable` | |
 | memory-candidate | `not-applicable` | |

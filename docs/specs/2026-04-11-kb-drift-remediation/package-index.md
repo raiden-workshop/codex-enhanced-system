@@ -17,7 +17,7 @@
 | plan | `done` | `docs/specs/2026-04-11-kb-drift-remediation/plan.md` |
 | plan-review | `done` | `docs/specs/2026-04-11-kb-drift-remediation/plan-review.md` |
 | tasks | `done` | `docs/specs/2026-04-11-kb-drift-remediation/tasks.md` |
-| implementation | `done` | `knowledge-base/wiki/concepts/*`, `knowledge-base/wiki/entities/*`, `knowledge-base/wiki/syntheses/*`, `knowledge-base/wiki/hot.md`, `knowledge-base/wiki/index.md`, `knowledge-base/wiki/overview.md`, `knowledge-base/wiki/log.md`, `knowledge-base/wiki/reports/report-drift-review-2026-04-11.md` |
+| implementation | `done` | `/Users/wz/project/knowledge-base/wiki/concepts/*`, `/Users/wz/project/knowledge-base/wiki/entities/*`, `/Users/wz/project/knowledge-base/wiki/syntheses/*`, `/Users/wz/project/knowledge-base/wiki/hot.md`, `/Users/wz/project/knowledge-base/wiki/index.md`, `/Users/wz/project/knowledge-base/wiki/overview.md`, `/Users/wz/project/knowledge-base/wiki/log.md`, `/Users/wz/project/knowledge-base/wiki/reports/report-drift-review-2026-04-11.md` |
 | verify | `done` | `docs/specs/2026-04-11-kb-drift-remediation/verify.md` |
 | code-review | `not-applicable` | |
 | memory-candidate | `not-applicable` | |

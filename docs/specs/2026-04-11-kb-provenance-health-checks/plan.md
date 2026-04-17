@@ -1,7 +1,7 @@
 # Plan / 计划
 
-1. 在 `knowledge-base/kb` 里补 provenance 质量 lint 与 guide-surface health-check helper。
-   Add provenance-quality lint and guide-surface health-check helpers in `knowledge-base/kb`.
+1. 在 `/Users/wz/project/knowledge-base/kb` 里补 provenance 质量 lint 与 guide-surface health-check helper。
+   Add provenance-quality lint and guide-surface health-check helpers in `/Users/wz/project/knowledge-base/kb`.
 
 2. 更新 `check_maintenance()`，把新规则接入默认维护检查。
    Update `check_maintenance()` so the new rules run in the default maintenance pass.
