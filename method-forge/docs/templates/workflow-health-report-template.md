@@ -1,5 +1,7 @@
 # Workflow Health Report
 
+Use this report to check whether the workflow is still simple, stable, and correctly bounded by its current artifacts.
+
 ## Scope
 
 - workspace:

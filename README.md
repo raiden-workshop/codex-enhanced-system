@@ -14,7 +14,7 @@ The intended priority order is:
 
 Keep the shared coding principles aligned across the guides and templates: think before coding, simplicity first, surgical changes, and goal-driven verification.
 
-Use the subdirectory that matches the task. If the task is about the knowledge base itself, switch to `/Users/wz/project/knowledge-base`; it is no longer a live subdirectory workflow inside this repo.
+Use the subdirectory that matches the task. If a task spans systems, keep the work in this repo and follow the narrowest applicable instructions first. If the task is about the knowledge base itself, switch to `/Users/wz/project/knowledge-base`; it is no longer a live subdirectory workflow inside this repo.
 
 ## Install
 

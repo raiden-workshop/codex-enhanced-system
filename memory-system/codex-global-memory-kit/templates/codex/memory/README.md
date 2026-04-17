@@ -5,6 +5,7 @@ This is the app-wide memory system for Codex.
 - Shared guides live in `instructions/company/`, `instructions/user/`, and `instructions/local/`.
 - Each workspace gets its own memory node under `workspaces/<workspace-key>/`.
 - `workspaces/index.json` maps normalized workspace paths to workspace keys.
+- Shared guides and workspace templates should follow the same coding principles: think before coding, simplicity first, surgical changes, and goal-driven verification.
 - Workspace nodes contain:
   - `instructions/repo/GUIDE.md`
   - `candidates/`

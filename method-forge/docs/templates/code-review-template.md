@@ -1,5 +1,7 @@
 # Code Review
 
+Review the smallest meaningful change set, keep the review grounded in the current source of truth, and call out any unresolved assumptions.
+
 ## Scope
 
 - change_summary:

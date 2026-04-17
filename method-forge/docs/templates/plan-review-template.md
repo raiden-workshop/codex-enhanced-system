@@ -1,5 +1,7 @@
 # Plan Review
 
+Keep the review focused on scope clarity, ordering, and avoidable complexity before implementation starts.
+
 ## Findings
 
 - 

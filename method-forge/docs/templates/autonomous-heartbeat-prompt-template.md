@@ -1,5 +1,7 @@
 # Autonomous Heartbeat Prompt
 
+Keep each cycle focused on the smallest safe next step, and stop only when the task is actually blocked, completed, or waiting on a human.
+
 Use this prompt only when a Codex native heartbeat automation has been explicitly requested or an existing autonomous run is being resumed for a `method-forge` task.
 
 ```text

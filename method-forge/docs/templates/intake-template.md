@@ -1,5 +1,7 @@
 # Intake
 
+Write the intake as the smallest clear decision point: confirm the scope, choose the simplest path, and record unresolved assumptions explicitly.
+
 ## Request Summary
 
 - request:

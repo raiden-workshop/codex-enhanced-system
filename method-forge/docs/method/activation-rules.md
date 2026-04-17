@@ -10,6 +10,8 @@ activation rules 用于把用户的自然语言意图自动映射到 `method-for
 - 默认进入 `method-forge` autonomous mode
 - `method-forge-execute` 作为 autonomous 的默认内层执行引擎
 
+这些触发规则应保持简单稳定，只覆盖必须的入口，不额外扩展成新的流程体系。
+
 ## 2. 触发优先级
 
 ### 2.1 明确指定 `method-forge`
@@ -113,6 +115,8 @@ activation rules 用于把用户的自然语言意图自动映射到 `method-for
 推荐安装到：
 
 - `~/.codex/skills/` 或 `$CODEX_HOME/skills/`
+
+如果外部资料里看到 `$HOME/.agents/skills`，按旧口径或别名理解即可；当前这套仓库和本地 Codex App 环境统一以 `~/.codex/skills/` 或 `$CODEX_HOME/skills/` 为准。
 
 安装后需要重启 Codex 才能稳定拾取新技能。
 

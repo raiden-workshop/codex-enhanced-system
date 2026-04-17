@@ -12,6 +12,13 @@
 - knowledge base 和 research 只作为输入，不替代 `spec.md`、`plan.md` 或 `tasks.md`。
 - 默认使用 Markdown 模板、短小章节和可 diff 的文档组织；不要引入大而全外部框架目录。
 
+## Coding Principles
+
+- Think before coding: surface ambiguity and state assumptions when the risk is real.
+- Simplicity first: choose the smallest stable solution.
+- Surgical changes: touch only what the request requires.
+- Goal-driven execution: define success criteria up front, then verify the result.
+
 ## Method Forge Autonomous Coding
 
 - 当用户表达“开始落地代码”“开始实现”“开始写代码”“继续写代码”“进入实现阶段”等实现意图时，默认进入 `method-forge` autonomous mode，除非用户明确要求不要自动、先别写代码或只做方案。

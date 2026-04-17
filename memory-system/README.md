@@ -9,6 +9,13 @@
 - `global / workspace / worker-run` 作用域规则
 - 记忆系统相关测试与 QA 文档
 
+这套工作区默认遵循的写作与实现原则是：
+
+- 先想清楚再写
+- 简单优先
+- 只做必要改动
+- 先定义成功标准，再验证结果
+
 正式文档入口：
 
 - `docs/codex-global-memory-system-design.md`
