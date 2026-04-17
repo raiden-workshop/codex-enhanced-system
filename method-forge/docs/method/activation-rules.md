@@ -116,6 +116,8 @@ activation rules 用于把用户的自然语言意图自动映射到 `method-for
 
 - `~/.codex/skills/` 或 `$CODEX_HOME/skills/`
 
+如果外部资料里看到 `$HOME/.agents/skills`，按旧口径或别名理解即可；当前这套仓库和本地 Codex App 环境统一以 `~/.codex/skills/` 或 `$CODEX_HOME/skills/` 为准。
+
 安装后需要重启 Codex 才能稳定拾取新技能。
 
 ### 6.2 触发规则被共享
