@@ -1,7 +1,7 @@
 # method-forge Rules
 
 - 开工前先读共享 memory guides；重要工作完成后运行 `python3 ~/.codex/scripts/refresh_memory.py --workspace-root "$(git rev-parse --show-toplevel)"`。
-- 本 workspace 只实现方法层，不重复实现 Codex App 原生的 multi-agent、worktrees、diff review、git/PR、background automations、sandbox/approvals、skill loading。
+- 本 workspace 只实现方法层，不重复实现 Codex App 原生的 multi-agent、worktrees、diff review、git/PR、background automations、plugins / app integrations / MCP 分发、Computer Use、built-in image generation、native memories、sandbox/approvals、skill loading。
 - 会话内流程编排统一叫 `orchestrations`；`automations` 只指 Codex App 原生后台任务。
 - 本文件只放硬规则；解释性内容一律放到 `docs/method/`。
 - 所有非闲聊、非纯问答请求默认先产出 `intake.md`。

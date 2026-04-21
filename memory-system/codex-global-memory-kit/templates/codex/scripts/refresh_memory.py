@@ -28,6 +28,7 @@ MEMORY_INDEX_REL = MEMORIES_REL / "MEMORY.md"
 ACTIVE_CONTEXT_REL = RUNTIME_REL / "active_context.md"
 LATEST_COMPRESSION_REL = RUNTIME_REL / "compression" / "latest.md"
 COMPRESSION_ARCHIVE_REL = RUNTIME_REL / "compression" / "archive"
+WORKSPACE_DISABLED_ARCHIVE_REL = Path("archive") / "disabled"
 DREAM_STATE_REL = DREAM_REL / "state.json"
 DREAM_REPORTS_REL = DREAM_REL / "reports"
 GLOBAL_CANDIDATES_REL = GLOBAL_REL / "candidates"
@@ -39,6 +40,7 @@ GLOBAL_CONFLICTS_REL = GLOBAL_REL / "conflicts"
 GLOBAL_CONFLICTS_OPEN_REL = GLOBAL_CONFLICTS_REL / "open"
 GLOBAL_CONFLICTS_RESOLVED_REL = GLOBAL_CONFLICTS_REL / "resolved"
 GLOBAL_CONFLICTS_ARCHIVED_REL = GLOBAL_CONFLICTS_REL / "archived"
+GLOBAL_DISABLED_ARCHIVE_REL = GLOBAL_REL / "archive" / "disabled"
 GLOBAL_DREAM_REL = GLOBAL_REL / "dream"
 GLOBAL_DREAM_STATE_REL = GLOBAL_DREAM_REL / "state.json"
 GLOBAL_DREAM_REPORTS_REL = GLOBAL_DREAM_REL / "reports"
@@ -81,6 +83,13 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "reference_min_confidence": 0.8,
         "user_min_confidence": 0.85,
         "reference_max_promoted_per_source": 3,
+    },
+    "memory_types": {
+        "user": False,
+        "feedback": False,
+        "project": True,
+        "reference": True,
+        "open_loop": True,
     },
     "runtime": {
         "focus_session_limit": 2,
@@ -138,6 +147,32 @@ FEEDBACK_CORRECTION_PATTERNS = [
         r"优先",
     )
 ]
+
+
+def is_memory_type_enabled(config: Dict[str, Any], memory_type: str) -> bool:
+    defaults = DEFAULT_CONFIG.get("memory_types", {})
+    configured = config.get("memory_types", {})
+    return bool(configured.get(memory_type, defaults.get(memory_type, True)))
+
+
+def enabled_memory_types(config: Dict[str, Any]) -> Tuple[str, ...]:
+    return tuple(memory_type for memory_type in MEMORY_TYPES if is_memory_type_enabled(config, memory_type))
+
+
+def enabled_global_memory_types(config: Dict[str, Any]) -> Tuple[str, ...]:
+    return tuple(memory_type for memory_type in GLOBAL_MEMORY_TYPES if is_memory_type_enabled(config, memory_type))
+
+
+def disabled_memory_types(config: Dict[str, Any]) -> Tuple[str, ...]:
+    return tuple(memory_type for memory_type in MEMORY_TYPES if not is_memory_type_enabled(config, memory_type))
+
+
+def disabled_memory_note(memory_type: str) -> str:
+    if memory_type == "user":
+        return "Disabled here; native memories own personal preference recall."
+    if memory_type == "feedback":
+        return "Disabled here; native memories own common corrections and convenience recall."
+    return "Disabled in this governed layer."
 
 FEEDBACK_CONFIRMATION_PATTERNS = [
     re.compile(pattern, re.IGNORECASE)
@@ -1002,10 +1037,15 @@ def extract_candidates(
     config: Dict[str, Any],
 ) -> List[CandidateMemory]:
     candidates = []
-    candidates.extend(find_user_candidates(user_turns, base_dt, session_id, source_path, config))
-    candidates.extend(find_feedback_candidates(user_turns, base_dt, session_id, source_path, config))
-    candidates.extend(find_project_candidates(user_turns, base_dt, session_id, source_path, config))
-    candidates.extend(find_reference_candidates(user_turns, assistant_turns, base_dt, session_id, source_path, config))
+    enabled_types = set(enabled_memory_types(config))
+    if "user" in enabled_types:
+        candidates.extend(find_user_candidates(user_turns, base_dt, session_id, source_path, config))
+    if "feedback" in enabled_types:
+        candidates.extend(find_feedback_candidates(user_turns, base_dt, session_id, source_path, config))
+    if "project" in enabled_types:
+        candidates.extend(find_project_candidates(user_turns, base_dt, session_id, source_path, config))
+    if "reference" in enabled_types:
+        candidates.extend(find_reference_candidates(user_turns, assistant_turns, base_dt, session_id, source_path, config))
     deduped: List[CandidateMemory] = []
     seen: set[Tuple[str, str]] = set()
     for candidate in candidates:
@@ -1143,7 +1183,7 @@ def scaffold(memory_home: Path, workspace_root: Path, config: Dict[str, Any]) ->
         memory_home / GLOBAL_DREAM_REPORTS_REL,
     ):
         path.mkdir(parents=True, exist_ok=True)
-    save_json(memory_home / GLOBAL_CONFIG_REL, load_json(memory_home / GLOBAL_CONFIG_REL, json.loads(json.dumps(DEFAULT_CONFIG))))
+    save_json(memory_home / GLOBAL_CONFIG_REL, load_global_config(memory_home))
     save_json(memory_home / GLOBAL_REGISTRY_REL, load_json(memory_home / GLOBAL_REGISTRY_REL, {"version": 1, "promoted_clusters": {}}))
     save_json(
         memory_home / GLOBAL_DREAM_STATE_REL,
@@ -1339,11 +1379,31 @@ def parse_memory_file(path: Path) -> MemoryFile:
     if text.startswith("---\n"):
         try:
             _, raw_meta, body = text.split("---\n", 2)
+            current_list_key: str | None = None
+            current_list_items: List[str] = []
             for line in raw_meta.splitlines():
+                if re.match(r"^\s+-\s+", line):
+                    if current_list_key is not None:
+                        item = re.sub(r"^\s+-\s+", "", line).strip()
+                        if item:
+                            current_list_items.append(item)
+                    continue
                 if ":" not in line:
                     continue
+                if current_list_key is not None:
+                    metadata[current_list_key] = metadata_list_value(current_list_items)
+                    current_list_key = None
+                    current_list_items = []
                 key, value = line.split(":", 1)
-                metadata[key.strip()] = value.strip()
+                key = key.strip()
+                value = value.strip()
+                if value:
+                    metadata[key] = value
+                else:
+                    current_list_key = key
+                    current_list_items = []
+            if current_list_key is not None:
+                metadata[current_list_key] = metadata_list_value(current_list_items)
         except ValueError:
             body = text
 
@@ -1387,9 +1447,9 @@ def render_memory_file(item: MemoryFile) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def load_memory_files(memory_root: Path) -> List[MemoryFile]:
+def load_memory_files(memory_root: Path, memory_types: Sequence[str] = MEMORY_TYPES) -> List[MemoryFile]:
     files: List[MemoryFile] = []
-    for memory_type in MEMORY_TYPES:
+    for memory_type in memory_types:
         for path in sorted((memory_root / memory_type).glob("*.md")):
             files.append(parse_memory_file(path))
     return files
@@ -1413,7 +1473,7 @@ def write_memory_set(collection_root: Path, items: Sequence[CandidateMemory], *,
 
 
 def build_memory_index_file(memory_root: Path, output_path: Path, config: Dict[str, Any], memory_types: Sequence[str], *, title: str) -> int:
-    files = [item for item in load_memory_files(memory_root) if item.metadata.get("status", "active") == "active"]
+    files = [item for item in load_memory_files(memory_root, memory_types) if item.metadata.get("status", "active") == "active"]
     type_order = {memory_type: index for index, memory_type in enumerate(memory_types)}
     files.sort(key=lambda item: (type_order.get(item.metadata.get("type", ""), 99), item.metadata.get("last_confirmed_at", "")))
     groups: Dict[str, List[MemoryFile]] = {memory_type: [] for memory_type in memory_types}
@@ -1456,21 +1516,23 @@ def build_memory_index_file(memory_root: Path, output_path: Path, config: Dict[s
 
 
 def build_memory_index(workspace_home: Path, config: Dict[str, Any]) -> int:
+    memory_types = tuple(memory_type for memory_type in ("feedback", "project", "reference", "open_loop") if is_memory_type_enabled(config, memory_type))
     return build_memory_index_file(
         workspace_home / MEMORIES_REL,
         workspace_home / MEMORY_INDEX_REL,
         config,
-        ("feedback", "project", "reference", "open_loop"),
+        memory_types,
         title="Short index of active workspace memories.",
     )
 
 
 def build_global_memory_index(memory_home: Path, config: Dict[str, Any]) -> int:
+    memory_types = tuple(memory_type for memory_type in ("user", "feedback", "reference") if is_memory_type_enabled(config, memory_type))
     return build_memory_index_file(
         memory_home / GLOBAL_MEMORIES_REL,
         memory_home / GLOBAL_MEMORY_INDEX_REL,
         config,
-        ("user", "feedback", "reference"),
+        memory_types,
         title="Short index of active global memories.",
     )
 
@@ -1499,11 +1561,13 @@ def select_compression_level(raw_tokens: int, config: Dict[str, Any]) -> str:
 
 
 def build_runtime_context(workspace_home: Path, recent_records: Sequence[SessionRecord], config: Dict[str, Any]) -> str:
-    feedback_files = [
-        item
-        for item in load_memory_files(workspace_home / MEMORIES_REL)
-        if item.metadata.get("type") == "feedback" and item.metadata.get("status", "active") == "active"
-    ]
+    feedback_files = []
+    if is_memory_type_enabled(config, "feedback"):
+        feedback_files = [
+            item
+            for item in load_memory_files(workspace_home / MEMORIES_REL, ("feedback",))
+            if item.metadata.get("type") == "feedback" and item.metadata.get("status", "active") == "active"
+        ]
     feedback_files.sort(key=lambda item: item.metadata.get("last_confirmed_at", ""), reverse=True)
 
     raw_text = "\n".join(
@@ -1541,7 +1605,10 @@ def build_runtime_context(workspace_home: Path, recent_records: Sequence[Session
         "## Confirmed Feedback",
         "",
     ]
-    lines.extend([f"- {item}" for item in feedback] or ["- None"])
+    if is_memory_type_enabled(config, "feedback"):
+        lines.extend([f"- {item}" for item in feedback] or ["- None"])
+    else:
+        lines.append(f"- {disabled_memory_note('feedback')}")
     lines.extend(["", "## Files Changed", ""])
     lines.extend([f"- {item}" for item in files_changed] or ["- None"])
     lines.extend(["", "## Errors Encountered", ""])
@@ -1570,9 +1637,9 @@ def write_runtime_context(workspace_home: Path, text: str) -> None:
     latest_path.write_text(text, encoding="utf-8")
 
 
-def load_candidate_files(candidate_root: Path) -> List[MemoryFile]:
+def load_candidate_files(candidate_root: Path, memory_types: Sequence[str] = MEMORY_TYPES) -> List[MemoryFile]:
     files: List[MemoryFile] = []
-    for memory_type in MEMORY_TYPES:
+    for memory_type in memory_types:
         typed_root = candidate_root / memory_type
         if not typed_root.exists():
             continue
@@ -1750,8 +1817,12 @@ def rebuild_global_conflicts(
     return blocked, created
 
 
-def build_global_context(memory_home: Path) -> str:
-    files = [item for item in load_memory_files(memory_home / GLOBAL_MEMORIES_REL) if item.metadata.get("status", "active") == "active"]
+def build_global_context(memory_home: Path, config: Dict[str, Any]) -> str:
+    files = [
+        item
+        for item in load_memory_files(memory_home / GLOBAL_MEMORIES_REL, enabled_global_memory_types(config))
+        if item.metadata.get("status", "active") == "active"
+    ]
     files.sort(key=lambda item: item.metadata.get("last_confirmed_at", ""), reverse=True)
     groups: Dict[str, List[str]] = {"user": [], "feedback": [], "reference": []}
     for item in files:
@@ -1766,9 +1837,15 @@ def build_global_context(memory_home: Path) -> str:
         "## User Defaults",
         "",
     ]
-    lines.extend([f"- {item}" for item in groups["user"][:4]] or ["- None"])
+    if is_memory_type_enabled(config, "user"):
+        lines.extend([f"- {item}" for item in groups["user"][:4]] or ["- None"])
+    else:
+        lines.append(f"- {disabled_memory_note('user')}")
     lines.extend(["", "## Confirmed Global Feedback", ""])
-    lines.extend([f"- {item}" for item in groups["feedback"][:4]] or ["- None"])
+    if is_memory_type_enabled(config, "feedback"):
+        lines.extend([f"- {item}" for item in groups["feedback"][:4]] or ["- None"])
+    else:
+        lines.append(f"- {disabled_memory_note('feedback')}")
     lines.extend(["", "## Reusable References", ""])
     lines.extend([f"- {item}" for item in groups["reference"][:4]] or ["- None"])
     lines.extend(["", "## Open Global Decisions", ""])
@@ -1821,6 +1898,38 @@ def archive_memory_file(path: Path, archive_root: Path, reason: str) -> str:
     target.write_text(render_memory_file(item), encoding="utf-8")
     path.unlink()
     return str(target)
+
+
+def archive_disabled_workspace_state(workspace_home: Path, config: Dict[str, Any]) -> Dict[str, List[str]]:
+    disabled_types = disabled_memory_types(config)
+    archived_memories: List[str] = []
+    archived_candidates: List[str] = []
+    if not disabled_types:
+        return {"memories": archived_memories, "candidates": archived_candidates}
+    memory_archive_root = workspace_home / WORKSPACE_DISABLED_ARCHIVE_REL / "memories"
+    candidate_archive_root = workspace_home / WORKSPACE_DISABLED_ARCHIVE_REL / "candidates"
+    for memory_type in disabled_types:
+        for path in sorted((workspace_home / MEMORIES_REL / memory_type).glob("*.md")):
+            archived_memories.append(archive_memory_file(path, memory_archive_root, "memory_type_disabled"))
+        for path in sorted((workspace_home / CANDIDATES_REL / memory_type).glob("*.md")):
+            archived_candidates.append(archive_memory_file(path, candidate_archive_root, "memory_type_disabled"))
+    return {"memories": archived_memories, "candidates": archived_candidates}
+
+
+def archive_disabled_global_state(memory_home: Path, config: Dict[str, Any]) -> Dict[str, List[str]]:
+    disabled_types = tuple(memory_type for memory_type in GLOBAL_MEMORY_TYPES if not is_memory_type_enabled(config, memory_type))
+    archived_memories: List[str] = []
+    archived_candidates: List[str] = []
+    if not disabled_types:
+        return {"memories": archived_memories, "candidates": archived_candidates}
+    memory_archive_root = memory_home / GLOBAL_DISABLED_ARCHIVE_REL / "memories"
+    candidate_archive_root = memory_home / GLOBAL_DISABLED_ARCHIVE_REL / "candidates"
+    for memory_type in disabled_types:
+        for path in sorted((memory_home / GLOBAL_MEMORIES_REL / memory_type).glob("*.md")):
+            archived_memories.append(archive_memory_file(path, memory_archive_root, "memory_type_disabled"))
+        for path in sorted((memory_home / GLOBAL_CANDIDATES_REL / memory_type).glob("*.md")):
+            archived_candidates.append(archive_memory_file(path, candidate_archive_root, "memory_type_disabled"))
+    return {"memories": archived_memories, "candidates": archived_candidates}
 
 
 def migrate_existing_metadata(memory_home: Path) -> Dict[str, int]:
@@ -1906,15 +2015,16 @@ def govern_global_candidates(memory_home: Path, config: Dict[str, Any]) -> Dict[
     archive_after_days = int(settings.get("archive_after_days", 30))
     keep_per_key = int(settings.get("keep_per_key", 1))
     archive_root = memory_home / GLOBAL_CANDIDATES_ARCHIVE_REL
+    global_types = enabled_global_memory_types(config)
     active_keys = {
         item.metadata.get("key") or memory_file_identity_key(item)
-        for item in load_memory_files(memory_home / GLOBAL_MEMORIES_REL)
+        for item in load_memory_files(memory_home / GLOBAL_MEMORIES_REL, global_types)
         if item.metadata.get("status", "active") == "active"
     }
     archived: List[str] = []
     now = datetime.now(timezone.utc)
 
-    for memory_type in GLOBAL_MEMORY_TYPES:
+    for memory_type in global_types:
         typed_root = memory_home / GLOBAL_CANDIDATES_REL / memory_type
         if not typed_root.exists():
             continue
@@ -1957,19 +2067,20 @@ def govern_global_candidates(memory_home: Path, config: Dict[str, Any]) -> Dict[
 
 
 def run_global_dream(memory_home: Path, config: Dict[str, Any]) -> Dict[str, Any]:
+    global_types = enabled_global_memory_types(config)
     eligible_groups: Dict[Tuple[str, str], List[Tuple[str, MemoryFile]]] = {}
     for workspace_key_value, workspace_path in workspace_nodes(memory_home):
-        for item in load_candidate_files(workspace_path / CANDIDATES_REL):
+        for item in load_candidate_files(workspace_path / CANDIDATES_REL, global_types):
             memory_type = item.metadata.get("type", "")
-            if memory_type not in GLOBAL_MEMORY_TYPES:
+            if memory_type not in global_types:
                 continue
             primary = memory_primary_text(item)
             if not primary:
                 continue
             eligible_groups.setdefault((memory_type, primary), []).append((workspace_key_value, item))
-        for item in load_memory_files(workspace_path / MEMORIES_REL):
+        for item in load_memory_files(workspace_path / MEMORIES_REL, global_types):
             memory_type = item.metadata.get("type", "")
-            if memory_type not in GLOBAL_MEMORY_TYPES:
+            if memory_type not in global_types:
                 continue
             if item.metadata.get("status", "active") != "active":
                 continue
@@ -2013,17 +2124,17 @@ def run_global_dream(memory_home: Path, config: Dict[str, Any]) -> Dict[str, Any
     candidate_governance = govern_global_candidates(memory_home, config)
     promoted_keys = {candidate.key or candidate_identity_key(candidate) for candidate in promoted}
     stale: List[str] = []
-    for item in load_memory_files(memory_home / GLOBAL_MEMORIES_REL):
+    for item in load_memory_files(memory_home / GLOBAL_MEMORIES_REL, global_types):
         if item.metadata.get("status", "active") != "active":
             continue
-        if item.metadata.get("type", "") not in GLOBAL_MEMORY_TYPES:
+        if item.metadata.get("type", "") not in global_types:
             continue
         if (item.metadata.get("key") or slugify(item.title)) in promoted_keys:
             continue
         mark_status(item.path, "stale")
         stale.append(str(item.path))
     index_lines = build_global_memory_index(memory_home, config)
-    write_global_context(memory_home, build_global_context(memory_home))
+    write_global_context(memory_home, build_global_context(memory_home, config))
     now = datetime.now(timezone.utc)
     report_path = memory_home / GLOBAL_DREAM_REPORTS_REL / f"{now.strftime('%Y%m%dT%H%M%SZ')}.md"
     report_lines = [
@@ -2115,13 +2226,13 @@ def should_demote_active_memory(item: MemoryFile) -> bool:
 
 def run_dream(workspace_home: Path, config: Dict[str, Any], write_results: Dict[str, List[str]]) -> Dict[str, Any]:
     memory_root = workspace_home / MEMORIES_REL
-    files = [item for item in load_memory_files(memory_root) if item.metadata.get("status", "active") == "active"]
+    files = [item for item in load_memory_files(memory_root, enabled_memory_types(config)) if item.metadata.get("status", "active") == "active"]
     stale: List[str] = []
     for item in files:
         if should_demote_active_memory(item):
             mark_status(item.path, "stale")
             stale.append(str(item.path))
-    files = [item for item in load_memory_files(memory_root) if item.metadata.get("status", "active") == "active"]
+    files = [item for item in load_memory_files(memory_root, enabled_memory_types(config)) if item.metadata.get("status", "active") == "active"]
     groups: Dict[Tuple[str, str], List[MemoryFile]] = {}
     for item in files:
         identity = item.metadata.get("key") or slugify(item.title)
@@ -2212,6 +2323,8 @@ def main() -> int:
     config = load_config(workspace_home)
     global_config = load_global_config(memory_home)
     migration_result = migrate_existing_metadata(memory_home)
+    disabled_workspace_archives = archive_disabled_workspace_state(workspace_home, config)
+    disabled_global_archives = archive_disabled_global_state(memory_home, global_config)
 
     registry = load_registry(workspace_home)
     processed_sessions = registry.setdefault("processed_sessions", {})
@@ -2305,6 +2418,8 @@ def main() -> int:
         global_dream_state["dream_count"] = int(global_dream_state.get("dream_count", 0)) + 1
     save_global_dream_state(memory_home, global_dream_state)
     write_global_registry(memory_home, load_global_registry(memory_home))
+    build_global_memory_index(memory_home, global_config)
+    write_global_context(memory_home, build_global_context(memory_home, global_config))
 
     print(
         json.dumps(
@@ -2313,6 +2428,8 @@ def main() -> int:
                 "memory_home": str(memory_home),
                 "workspace_memory_home": str(workspace_home),
                 "metadata_migrated": migration_result,
+                "disabled_workspace_archives": disabled_workspace_archives,
+                "disabled_global_archives": disabled_global_archives,
                 "matching_sessions": len(matching_files),
                 "processed": processed_count,
                 "skipped": skipped_count,

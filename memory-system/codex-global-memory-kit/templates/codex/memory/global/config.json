@@ -30,6 +30,13 @@
     "user_min_confidence": 0.85,
     "reference_max_promoted_per_source": 3
   },
+  "memory_types": {
+    "user": false,
+    "feedback": false,
+    "project": true,
+    "reference": true,
+    "open_loop": true
+  },
   "runtime": {
     "focus_session_limit": 2
   }

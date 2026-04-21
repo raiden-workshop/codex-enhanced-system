@@ -19,6 +19,10 @@
 | diff review / 变更面板 | Codex 原生 | 直接复用，不另做审阅 UI |
 | git / commit / PR 基础集成 | Codex 原生 | 直接复用，只在方法文档里说明何时需要 review |
 | background automations | Codex 原生 | 不在本项目中复制后台调度器 |
+| plugins / app integrations / MCP 分发 | Codex 原生 | 直接复用，不重做分发和连接层 |
+| Computer Use | Codex 原生 | 直接复用，不重做桌面操作层 |
+| built-in image generation | Codex 原生 | 直接复用，不重做原生出图能力 |
+| native memories (`~/.codex/memories/`) | Codex 原生 | 视为便捷 recall，不在 `method-forge` 中重做 |
 | sandbox / approvals / trust | Codex 原生 | 不重做权限系统 |
 | skill loading | Codex 原生 | 只编写 `SKILL.md`，不实现加载器 |
 | heartbeat / background automation 调度 | Codex 原生 | 可提供 prompt 与状态规则，但不重做监听器 |
@@ -67,6 +71,7 @@
 ## 6. 和 memory / knowledge base 的边界
 
 - memory system 回答“应该长期记住什么”
+- native memories 更偏向“方便想起什么”
 - knowledge base 回答“知道什么”
 - `method-forge` 回答“一个请求应该如何稳定地走到交付”
 

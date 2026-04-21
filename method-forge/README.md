@@ -11,6 +11,8 @@
 
 它不重复实现 Codex App 已经原生提供的工程能力。
 
+仓库级原生优先边界以根目录 [README.md](../README.md) 里的 `Native-first compatibility map` 为准；本文档只细化 `method-forge` 自己的方法层职责。
+
 使用 `method-forge` 时，同样保持这套通用原则：先想清楚再写、简单优先、只做必要改动、先定义成功标准再验证。
 
 ## 负责范围
@@ -28,6 +30,10 @@
 - diff review 面板
 - git / commit / PR 基础集成
 - background automations
+- plugins / app integrations / MCP 分发
+- Computer Use
+- built-in image generation
+- native memories
 - sandbox / approvals / trust 配置
 - skill 加载机制
 - memory system 本体改造
@@ -95,6 +101,7 @@ route-request
 - 流程说明：[docs/method/workflow.md](docs/method/workflow.md)
 - Skill 契约：[docs/method/skill-contracts.md](docs/method/skill-contracts.md)
 - Orchestration 规则：[docs/method/orchestration-rules.md](docs/method/orchestration-rules.md)
+- 仓库级兼容图：[../README.md#native-first-compatibility-map](../README.md#native-first-compatibility-map)
 - Codex 原生边界：[docs/method/codex-native-boundaries.md](docs/method/codex-native-boundaries.md)
 - 单入口执行 skill：[skills/method-forge-execute/SKILL.md](skills/method-forge-execute/SKILL.md)
 - autonomous 执行扩展：[docs/method/autonomous-execution.md](docs/method/autonomous-execution.md)

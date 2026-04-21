@@ -1,8 +1,9 @@
 # memory system 工作区说明
 
-- 当前工作区专门维护 Codex App 的全局记忆系统。
+- 当前子工作区专门维护 Codex App 的全局记忆系统。
 - 这里不是业务项目，而是记忆系统本身的设计与实现项目。
-- 当前工作区对应的全局记忆节点位于 `~/.codex/memory/workspaces/memory-system-<workspace-key>/`。
+- 当前 workspace 对应的全局记忆节点必须先通过 `~/.codex/memory/workspaces/index.json` 按 workspace path 查找；不要硬编码 workspace key。
+- 本工作区维护的是受治理的 `~/.codex/memory/`；Codex App 原生 memories `~/.codex/memories/` 不在这里直接实现或改造。
 
 ## 开工前先读
 
@@ -10,12 +11,12 @@
   - `~/.codex/memory/instructions/company/GUIDE.md`
   - `~/.codex/memory/instructions/user/GUIDE.md`
   - `~/.codex/memory/instructions/local/GUIDE.md`
-- 当前工作区 Guide：
-  - `~/.codex/memory/workspaces/memory-system-<workspace-key>/instructions/repo/GUIDE.md`
-- 当前工作区长期记忆索引：
-  - `~/.codex/memory/workspaces/memory-system-<workspace-key>/memories/MEMORY.md`
-- 当前工作区压缩上下文：
-  - `~/.codex/memory/workspaces/memory-system-<workspace-key>/runtime/active_context.md`
+- 当前 workspace Guide：
+  - `~/.codex/memory/workspaces/<mapped-workspace-key>/instructions/repo/GUIDE.md`
+- 当前 workspace 长期记忆索引：
+  - `~/.codex/memory/workspaces/<mapped-workspace-key>/memories/MEMORY.md`
+- 当前 workspace 压缩上下文：
+  - `~/.codex/memory/workspaces/<mapped-workspace-key>/runtime/active_context.md`
 
 ## 完工后补记忆
 
@@ -31,6 +32,7 @@ python3 ~/.codex/scripts/refresh_memory.py --workspace-root "$(git rev-parse --s
 - `workspace` 是项目长期记忆主层。
 - `global` 只保留跨 workspace 稳定成立的长期记忆。
 - 先升 `workspace`，再按规则升 `global`。
+- 当 Codex App native memories 已开启时，受治理的 `~/.codex/memory/` 不再拥有 `user` / `feedback` recall；这两类默认关闭并归档，由 `~/.codex/memories/` 负责。
 
 ## Coding Principles
 
