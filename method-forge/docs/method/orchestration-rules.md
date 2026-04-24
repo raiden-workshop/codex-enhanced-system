@@ -15,6 +15,7 @@
 - 直接写长期 memory
 - 直接实现功能
 - 代替 Codex App 原生 automations
+- 代替 Codex App 原生 lifecycle hooks
 
 编排规则要保持最小可用：只定义下一步、顺序和停点，不额外发明新的流程层。
 
@@ -98,5 +99,6 @@
 
 - 会话内流程编排命名为 `orchestrations`
 - `automations` 专指 Codex App 原生后台能力
+- `lifecycle hooks` 专指 Codex 原生 session / prompt / permission / tool-use 事件触发能力
 
 因此，任何历史文档里把这两者混用的地方，都应在当前实现中按此规则修正。

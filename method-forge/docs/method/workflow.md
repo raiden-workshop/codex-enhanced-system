@@ -240,5 +240,6 @@ implement
 - `skills`：能力单元
 - `orchestrations`：会话内流程编排
 - `automations`：Codex App 原生后台任务
+- `lifecycle hooks`：Codex 原生 session / prompt / permission / tool-use 事件触发能力
 
-`method-forge` 只定义前两者，不重做第三者。
+`method-forge` 只定义 `skills` 与 `orchestrations` 的方法层规则，不重做 automations 或 lifecycle hooks。

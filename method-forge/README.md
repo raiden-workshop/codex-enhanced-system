@@ -30,6 +30,7 @@
 - diff review 面板
 - git / commit / PR 基础集成
 - background automations
+- lifecycle hooks / hook runner
 - plugins / app integrations / MCP 分发
 - Computer Use
 - built-in image generation
@@ -148,6 +149,7 @@ route-request
 - `run-state.md` 与 cycle report
 - resume / loop guard 规则
 - 默认自动调用 `method-forge-execute`
+- lifecycle hooks 仍归 Codex 原生；`method-forge` 只说明何时适合挂接，不自动安装 hook 配置
 
 如果你希望在每个 worker 里支持“开始落地代码 / 开始实现 / 继续写代码”等实现意图默认进入 autonomous mode，或恢复既有 autonomous run，还需要：
 

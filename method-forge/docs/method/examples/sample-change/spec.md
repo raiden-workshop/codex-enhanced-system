@@ -19,13 +19,13 @@
 - 实现自动执行器
 - 改造 memory system
 - 改造 knowledge base
-- 复制 Codex 原生 automations 或审批系统
+- 复制 Codex 原生 automations、lifecycle hooks 或审批系统
 
 ## Constraints
 
 - technical_constraints: 仅使用 Markdown 文档与现有目录结构落地。
 - workflow_constraints: 会话内流程编排必须统一叫 `orchestrations`。
-- policy_constraints: 不得重复实现 Codex 原生 multi-agent、worktree、git/PR、background automations。
+- policy_constraints: 不得重复实现 Codex 原生 multi-agent、worktree、git/PR、background automations 或 lifecycle hooks。
 
 ## Acceptance Criteria
 

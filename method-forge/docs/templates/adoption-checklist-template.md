@@ -24,7 +24,7 @@ Keep the adopted workflow simple, explicit, and tightly scoped: think before add
 ## Boundaries
 
 - [ ] 不直接写长期 memory
-- [ ] 不重做 Codex 原生 multi-agent、git/PR、automations、sandbox
+- [ ] 不重做 Codex 原生 multi-agent、git/PR、automations、lifecycle hooks、sandbox
 - [ ] 不把 research 或 knowledge-base 页面当成 `spec.md` / `plan.md` 替代品
 
 ## Maintenance
@@ -38,3 +38,4 @@ Keep the adopted workflow simple, explicit, and tightly scoped: think before add
 - [ ] 已约定 autonomous 模式的 `runtime/run-state.md` 路径
 - [ ] 已采用 loop guard 规则
 - [ ] 已明确 heartbeat automation 默认使用 `method-forge-execute`
+- [ ] 已明确 lifecycle hooks 只用于即时事件，不替代 heartbeat 续跑

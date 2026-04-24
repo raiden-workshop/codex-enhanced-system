@@ -19,6 +19,7 @@
 | diff review / 变更面板 | Codex 原生 | 直接复用，不另做审阅 UI |
 | git / commit / PR 基础集成 | Codex 原生 | 直接复用，只在方法文档里说明何时需要 review |
 | background automations | Codex 原生 | 不在本项目中复制后台调度器 |
+| lifecycle hooks | Codex 原生 | 可用于 session / prompt / permission / tool-use 事件观察；不在本项目中实现 hook runner |
 | plugins / app integrations / MCP 分发 | Codex 原生 | 直接复用，不重做分发和连接层 |
 | Computer Use | Codex 原生 | 直接复用，不重做桌面操作层 |
 | built-in image generation | Codex 原生 | 直接复用，不重做原生出图能力 |
@@ -40,6 +41,7 @@
 | memory candidate 判断 | 只提出候选，不直接写 memory |
 | knowledge-base 接入口 | 把 research 结果接入 spec/plan，但不替代它们 |
 | autonomous run-state / resume / loop guard | 为原生 automation 提供方法层状态与恢复规则 |
+| hook policy notes / templates | 只说明何时适合使用 Codex 原生 hooks，不负责安装或运行 hooks |
 
 ## 4. 明确不做的事
 
@@ -49,7 +51,7 @@
 - 改造 knowledge base 本体
 - 引入完整外部框架安装器
 - 把外部 GitHub 项目目录原样搬进来
-- 重做原生多 agent、worktree、background automations 或 diff review
+- 重做原生多 agent、worktree、background automations、lifecycle hooks 或 diff review
 
 ## 5. 命名修正
 
@@ -67,6 +69,7 @@
 
 - autonomous 模式里，真正的监听者仍然是 Codex 原生 automation
 - `method-forge` 只负责默认执行引擎、run-state、resume 和 loop guard
+- lifecycle hooks 只适合即时事件前后处理；跨回合续跑仍由 heartbeat / background automation 负责
 
 ## 6. 和 memory / knowledge base 的边界
 

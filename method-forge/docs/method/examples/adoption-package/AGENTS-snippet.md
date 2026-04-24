@@ -6,4 +6,5 @@
 - 高风险改动可在 `verify` 前追加 `code-review.md`。
 - `verify.md` 可以提出 `memory-candidate.md`，但不得直接写长期 memory。
 - 会话内流程编排统一叫 `orchestrations`；`automations` 只指 Codex App 原生后台任务。
-- 不重复实现 Codex 原生的 multi-agent、worktrees、diff review、git/PR、background automations、sandbox/approvals、skill loading。
+- `lifecycle hooks` 只指 Codex 原生即时事件触发面，不替代 heartbeat 续跑。
+- 不重复实现 Codex 原生的 multi-agent、worktrees、diff review、git/PR、background automations、lifecycle hooks、sandbox/approvals、skill loading。

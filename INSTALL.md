@@ -30,7 +30,8 @@ For the current native-vs-local boundary, use the root [README.md](README.md) `N
   - `memory-system/`
   - `method-forge/`
 - Knowledge-base runtime, docs, and CLI entry have moved to `/Users/wz/project/knowledge-base`
-- The bootstrap script only installs skills. It does not install plugins, manage native automations, or overwrite existing Codex memory data.
+- The bootstrap script only installs skills. It does not install plugins, manage native automations, install lifecycle hooks, or overwrite existing Codex memory data.
+- Hook configuration, if ever needed, must stay opt-in and use Codex native `config.toml` / `requirements.toml` surfaces rather than a repository-owned hook runner.
 - The bootstrap script does not manage native memories under `~/.codex/memories/`; governed memory refresh in this repo targets `~/.codex/memory/`.
 - In the current native-first setup, enable native memories in `~/.codex/config.toml` and keep `memory-system` `user` / `feedback` capture disabled to avoid duplicate preference and correction recall.
 - Keep the shared coding principles aligned across the stack: think before coding, simplicity first, surgical changes, and goal-driven verification.

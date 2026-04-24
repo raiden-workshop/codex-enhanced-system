@@ -10,6 +10,7 @@
 - 不直接写长期 memory
 - 不改造 knowledge base 本体
 - 不包装 Codex 原生工程能力
+- 不实现 Codex 原生 lifecycle hooks 的替代 runner
 
 实现 skills 时保持规则简单、稳定、可验证，只补缺口，不扩成新的复杂约定。
 
@@ -93,6 +94,7 @@
 - 当用户表达“开始落地代码”“开始实现”“开始写代码”“继续写代码”等实现意图时默认启用；显式要求 automation / autonomous / heartbeat 续跑或恢复既有 autonomous run 时也启用
 - 必须把 `method-forge-execute` 设为默认内层执行引擎
 - 必须维护 `run-state.md` 并执行 loop guard
+- 不得把 lifecycle hooks 当作 heartbeat 的替代品；hooks 只适合即时事件前后处理
 
 ### 3.7 `method-forge-code-review`
 

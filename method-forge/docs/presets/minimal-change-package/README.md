@@ -73,4 +73,4 @@ docs/specs/<change-id>/
 - 消费方可以先把 [consumer-agents-rules-template.md](../../templates/consumer-agents-rules-template.md) 贴进自己的 `AGENTS.md` 再细化。
 - `package-index.md` 是导航页，不是第二份 spec。
 - 若消费方只做轻任务，不必强制补齐所有文件。
-- 仍然遵守 `method-forge` 的边界：不重做 Codex 原生 multi-agent、git/PR、automations、sandbox。
+- 仍然遵守 `method-forge` 的边界：不重做 Codex 原生 multi-agent、git/PR、automations、lifecycle hooks、sandbox。

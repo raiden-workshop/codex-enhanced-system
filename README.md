@@ -8,7 +8,7 @@ This repository consolidates the three Codex support systems into one place:
 
 The intended priority order is:
 
-1. Codex App native behavior and built-in automation boundaries
+1. Codex App native behavior, lifecycle hooks, and built-in automation boundaries
 2. This repository's root guidance
 3. The subworkspace guidance inside each system
 
@@ -28,6 +28,7 @@ When native Codex capabilities overlap with local workflows, treat Codex App as 
 - worktree isolation
 - diff review, built-in Git actions, commit/push/PR flows
 - automations, including thread automations and heartbeat-style wakeups
+- lifecycle hooks for session, prompt, permission, and tool-use events
 - plugin installation, app integrations, MCP distribution, and skill loading
 - Computer Use
 - built-in image generation
@@ -37,8 +38,15 @@ When native Codex capabilities overlap with local workflows, treat Codex App as 
 
 - `method-forge` request intake, `spec -> plan -> tasks -> verify`, and explicit quality gates
 - `method-forge` autonomous run-state, resume rules, and loop guards on top of native automations
+- optional hook policy notes and templates, without installing or running a second lifecycle system
 - `memory-system` governance, refresh, scope separation, and promotion rules for `~/.codex/memory/`
 - repo-local and user-local skills that encode reusable workflows more explicitly than the native surface
+
+### Lifecycle boundary
+
+- Use Codex native hooks for immediate lifecycle events such as session start, prompt submission, permission requests, and tool-use pre/post events.
+- Use Codex native heartbeat or background automations for cross-turn continuation and autonomous resumption.
+- `codex-enhanced-system` may document when hooks are useful, but must not ship a custom hook runner, daemon, or bootstrap behavior that silently changes a user's local hook configuration.
 
 ### Memory boundary
 

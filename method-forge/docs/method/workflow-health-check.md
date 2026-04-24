@@ -45,6 +45,7 @@ workflow health check 用于判断一套 `method-forge` 流程是否还在健康
 
 - 是否仍统一使用 `orchestrations`
 - 是否有人把会话内流程重新叫成 `automations`
+- 是否有人把 lifecycle hooks 写成第二套后台调度器
 
 ## 4. 轻量检查方法
 
@@ -53,6 +54,7 @@ workflow health check 用于判断一套 `method-forge` 流程是否还在健康
 3. 检查 `verify` 是否有测试与风险证据。
 4. 检查是否有孤立的文档草稿或未回收失败分支。
 5. 检查 memory candidate 是否谨慎。
+6. 检查 lifecycle hooks 是否只用于即时事件，不替代 heartbeat 续跑。
 
 ## 5. 触发修复的信号
 

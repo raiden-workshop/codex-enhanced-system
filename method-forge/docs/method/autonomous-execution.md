@@ -17,6 +17,8 @@
 
 - **Codex 原生 heartbeat / background automation**
   负责“监听”和“回来继续执行”
+- **Codex 原生 lifecycle hooks**
+  负责 session、prompt、permission、tool-use 等即时事件前后触发，不负责跨回合续跑
 - **`method-forge-execute`**
   负责“本轮应该做什么”
 - **变更包文档**
@@ -25,8 +27,15 @@
 一句话：
 
 - 原生 automation 是监听器
+- 原生 hooks 是即时事件触发面
 - `method-forge-execute` 是默认执行引擎
 - `run-state.md` 和 `package-index.md` 是恢复真相源
+
+## 2.1 hooks 与 heartbeat 的边界
+
+- hooks 适合 `SessionStart`、`UserPromptSubmit`、`PermissionRequest`、`PreToolUse`、`PostToolUse`、`Stop` 这类事件的轻量检查、提示或审计。
+- heartbeat / background automation 适合跨回合恢复、周期性读取 `run-state.md`、继续推进任务。
+- autonomous mode 不应把 hooks 当作第二套调度器，也不应通过 hooks 绕过 loop guard、approval 或 `verify`。
 
 补充边界：
 
@@ -141,6 +150,7 @@ autonomous 周期恢复时应按以下顺序读取：
 这层扩展仍然不做：
 
 - 重做 Codex 原生 automation 调度器
+- 重做 Codex 原生 lifecycle hook runner
 - 直接写长期 memory
 - 跳过 `verify`
 - 为了自动化而绕过 loop guard
