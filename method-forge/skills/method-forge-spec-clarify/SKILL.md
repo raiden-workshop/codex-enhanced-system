@@ -1,3 +1,8 @@
+---
+name: method-forge-spec-clarify
+description: Use when compressing an intake into a stable spec.md with boundaries, acceptance, and risks.
+---
+
 # method-forge-spec-clarify
 
 ## Purpose

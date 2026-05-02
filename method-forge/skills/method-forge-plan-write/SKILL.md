@@ -1,3 +1,8 @@
+---
+name: method-forge-plan-write
+description: Use when turning spec.md into an executable implementation plan.md.
+---
+
 # method-forge-plan-write
 
 ## Purpose

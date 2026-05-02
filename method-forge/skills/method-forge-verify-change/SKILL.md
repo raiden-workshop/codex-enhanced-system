@@ -1,3 +1,8 @@
+---
+name: method-forge-verify-change
+description: Use when validating that a change truly met its goal and whether it deserves a memory candidate.
+---
+
 # method-forge-verify-change
 
 ## Purpose

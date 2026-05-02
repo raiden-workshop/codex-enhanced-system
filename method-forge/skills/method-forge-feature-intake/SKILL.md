@@ -1,3 +1,8 @@
+---
+name: method-forge-feature-intake
+description: Use when turning a raw request into intake.md and deciding whether to route into spec flow, direct execution, or research.
+---
+
 # method-forge-feature-intake
 
 ## Purpose

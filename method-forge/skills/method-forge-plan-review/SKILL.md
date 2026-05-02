@@ -1,3 +1,8 @@
+---
+name: method-forge-plan-review
+description: Use when reviewing plan.md for risk, gaps, and ordering before tasks are split.
+---
+
 # method-forge-plan-review
 
 ## Purpose
