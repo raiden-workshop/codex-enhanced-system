@@ -12,6 +12,22 @@
 - 让新开的 worker 默认启用这套全局记忆系统
 - 安装后保持通用写作与实现原则一致：先想清楚再写，简单优先，只做必要改动，先定义成功标准再验证
 
+## 当前默认边界
+
+这套 kit 维护的是受治理的补充记忆层，不和 Codex App 官方 native memories 做重复 recall。
+
+- `~/.codex/memories/` 默认负责：
+  - 个人偏好
+  - 常见修正
+  - 便利性 recall
+- `~/.codex/memory/` 默认负责：
+  - `project`
+  - `reference`
+  - `open_loop`
+  - promotion / archive / dream / governance
+- 模板 `templates/codex/memory/global/config.json` 默认把 `memory_types.user = false`、`memory_types.feedback = false`
+- 如果目标机器明确没有启用 native memories，才按需改回 `true`；否则保持默认关闭，避免双写、冲突和重复注入
+
 ## 默认目标
 
 - `CODEX_HOME`：默认 `~/.codex`
@@ -360,6 +376,8 @@ python3 CODEX_HOME/scripts/refresh_memory.py --workspace-root TARGET_WORKSPACE
 - 如果文件不存在，直接从模板创建
 - 如果文件已存在，只补模板里缺失的键
 - 目标机器已有值优先，不要用模板覆盖
+- 模板默认会补 `memory_types.user = false` 和 `memory_types.feedback = false`
+- 这是为了把个人偏好、常见修正、便利性 recall 交给官方 native memories，而不是在本地补充层里重复记录
 
 ### `TARGET_WORKSPACE/AGENTS.md`
 

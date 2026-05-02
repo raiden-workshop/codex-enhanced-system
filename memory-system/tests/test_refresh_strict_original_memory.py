@@ -79,6 +79,13 @@ class StrictOriginalMemoryTests(unittest.TestCase):
                 "user_min_confidence": 0.85,
                 "reference_max_promoted_per_source": 3,
             },
+            "memory_types": {
+                "user": True,
+                "feedback": True,
+                "project": True,
+                "reference": True,
+                "open_loop": True,
+            },
             "runtime": {"focus_session_limit": 2},
         }
         for config_path in (
@@ -264,6 +271,234 @@ class StrictOriginalMemoryTests(unittest.TestCase):
         root = self.workspace_memory_home
         self.assertEqual(list((root / "memories" / "project").glob("*.md")), [])
         self.assertEqual(list((root / "candidates" / "project").glob("*.md")), [])
+
+    def test_disabled_user_and_feedback_archive_legacy_recall_and_keep_context_clear(self):
+        self.write_default_config()
+
+        for config_path in (
+            self.workspace_memory_home / "config.json",
+            self.memory_home / "global" / "config.json",
+        ):
+            payload = json.loads(config_path.read_text(encoding="utf-8"))
+            payload["memory_types"]["user"] = False
+            payload["memory_types"]["feedback"] = False
+            config_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+        workspace_feedback = self.workspace_memory_home / "memories" / "feedback" / "rule.md"
+        workspace_feedback.parent.mkdir(parents=True, exist_ok=True)
+        workspace_feedback.write_text(
+            "\n".join(
+                [
+                    "---",
+                    "id: feedback-2026-04-21-rule",
+                    "key: feedback-rule",
+                    "scope: workspace",
+                    "type: feedback",
+                    "created_at: 2026-04-21T00:00:00+00:00",
+                    "last_confirmed_at: 2026-04-21T00:00:00+00:00",
+                    "status: active",
+                    "---",
+                    "# Rule",
+                    "",
+                    "## Rule",
+                    "以后默认只给文件名和链接。",
+                    "",
+                    "## Why",
+                    "Legacy feedback memory.",
+                    "",
+                    "## How to apply",
+                    "Apply by default.",
+                    "",
+                    "## Evidence",
+                    "Workspace test fixture.",
+                    "",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        workspace_user_candidate = self.workspace_memory_home / "candidates" / "user" / "pref.md"
+        workspace_user_candidate.parent.mkdir(parents=True, exist_ok=True)
+        workspace_user_candidate.write_text(
+            "\n".join(
+                [
+                    "---",
+                    "id: user-2026-04-21-pref",
+                    "key: user-pref",
+                    "scope: workspace",
+                    "type: user",
+                    "created_at: 2026-04-21T00:00:00+00:00",
+                    "last_confirmed_at: 2026-04-21T00:00:00+00:00",
+                    "status: candidate",
+                    "---",
+                    "# Preference",
+                    "",
+                    "## Fact",
+                    "新文档默认中英文双语。",
+                    "",
+                    "## Why it matters",
+                    "Legacy user preference.",
+                    "",
+                    "## How to use",
+                    "Use by default.",
+                    "",
+                    "## Evidence",
+                    "Workspace test fixture.",
+                    "",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        global_user = self.memory_home / "global" / "memories" / "user" / "pref.md"
+        global_user.parent.mkdir(parents=True, exist_ok=True)
+        global_user.write_text(
+            "\n".join(
+                [
+                    "---",
+                    "id: user-2026-04-21-global-pref",
+                    "key: global-user-pref",
+                    "scope: global",
+                    "type: user",
+                    "created_at: 2026-04-21T00:00:00+00:00",
+                    "last_confirmed_at: 2026-04-21T00:00:00+00:00",
+                    "status: active",
+                    "---",
+                    "# Global Preference",
+                    "",
+                    "## Fact",
+                    "默认使用 README 驱动安装说明。",
+                    "",
+                    "## Why it matters",
+                    "Legacy global user preference.",
+                    "",
+                    "## How to use",
+                    "Use by default.",
+                    "",
+                    "## Evidence",
+                    "Global test fixture.",
+                    "",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        global_feedback_candidate = self.memory_home / "global" / "candidates" / "feedback" / "rule.md"
+        global_feedback_candidate.parent.mkdir(parents=True, exist_ok=True)
+        global_feedback_candidate.write_text(
+            "\n".join(
+                [
+                    "---",
+                    "id: feedback-2026-04-21-global-rule",
+                    "key: global-feedback-rule",
+                    "scope: global",
+                    "type: feedback",
+                    "created_at: 2026-04-21T00:00:00+00:00",
+                    "last_confirmed_at: 2026-04-21T00:00:00+00:00",
+                    "status: candidate",
+                    "---",
+                    "# Global Rule",
+                    "",
+                    "## Rule",
+                    "以后回答里不要展开大段文件清单。",
+                    "",
+                    "## Why",
+                    "Legacy global feedback memory.",
+                    "",
+                    "## How to apply",
+                    "Apply by default.",
+                    "",
+                    "## Evidence",
+                    "Global test fixture.",
+                    "",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        self.assertEqual(self.run_script("--force"), 0)
+        self.assertFalse(workspace_feedback.exists())
+        self.assertFalse(workspace_user_candidate.exists())
+        self.assertFalse(global_user.exists())
+        self.assertFalse(global_feedback_candidate.exists())
+
+        self.assertTrue((self.workspace_memory_home / "archive" / "disabled" / "memories" / "feedback" / "rule.md").exists())
+        self.assertTrue((self.workspace_memory_home / "archive" / "disabled" / "candidates" / "user" / "pref.md").exists())
+        self.assertTrue((self.memory_home / "global" / "archive" / "disabled" / "memories" / "user" / "pref.md").exists())
+        self.assertTrue((self.memory_home / "global" / "archive" / "disabled" / "candidates" / "feedback" / "rule.md").exists())
+
+        memory_index = (self.workspace_memory_home / "memories" / "MEMORY.md").read_text(encoding="utf-8")
+        self.assertNotIn("[feedback]", memory_index)
+        global_memory_index = (self.memory_home / "global" / "memories" / "MEMORY.md").read_text(encoding="utf-8")
+        self.assertNotIn("[user]", global_memory_index)
+        self.assertNotIn("[feedback]", global_memory_index)
+
+        active_context = (self.workspace_memory_home / "runtime" / "active_context.md").read_text(encoding="utf-8")
+        self.assertIn("native memories own common corrections and convenience recall", active_context)
+
+        global_context = (self.memory_home / "global" / "runtime" / "global_context.md").read_text(encoding="utf-8")
+        self.assertIn("native memories own personal preference recall", global_context)
+        self.assertIn("native memories own common corrections and convenience recall", global_context)
+
+    def test_disabled_global_recall_rebuilds_indexes_without_new_sessions(self):
+        self.write_default_config()
+
+        for config_path in (
+            self.workspace_memory_home / "config.json",
+            self.memory_home / "global" / "config.json",
+        ):
+            payload = json.loads(config_path.read_text(encoding="utf-8"))
+            payload["memory_types"]["user"] = False
+            payload["memory_types"]["feedback"] = False
+            config_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+        global_feedback = self.memory_home / "global" / "memories" / "feedback" / "rule.md"
+        global_feedback.parent.mkdir(parents=True, exist_ok=True)
+        global_feedback.write_text(
+            "\n".join(
+                [
+                    "---",
+                    "id: feedback-2026-04-21-global-rule",
+                    "key: global-feedback-rule",
+                    "scope: global",
+                    "type: feedback",
+                    "created_at: 2026-04-21T00:00:00+00:00",
+                    "last_confirmed_at: 2026-04-21T00:00:00+00:00",
+                    "status: active",
+                    "---",
+                    "# Global Rule",
+                    "",
+                    "## Rule",
+                    "以后回答里不要展开大段文件清单。",
+                    "",
+                    "## Why",
+                    "Legacy global feedback memory.",
+                    "",
+                    "## How to apply",
+                    "Apply by default.",
+                    "",
+                    "## Evidence",
+                    "Global test fixture.",
+                    "",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        self.assertEqual(self.run_script(), 0)
+        self.assertFalse(global_feedback.exists())
+
+        global_memory_index = (self.memory_home / "global" / "memories" / "MEMORY.md").read_text(encoding="utf-8")
+        self.assertNotIn("[feedback]", global_memory_index)
+
+        global_context = (self.memory_home / "global" / "runtime" / "global_context.md").read_text(encoding="utf-8")
+        self.assertIn("native memories own common corrections and convenience recall", global_context)
+        self.assertNotIn("以后回答里不要展开大段文件清单", global_context)
 
     def test_content_keys_prevent_confirmed_slug_collision(self):
         rows_a = [

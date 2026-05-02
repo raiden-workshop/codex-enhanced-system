@@ -15,6 +15,7 @@
 - 直接写长期 memory
 - 直接实现功能
 - 代替 Codex App 原生 automations
+- 代替 Codex App 原生 lifecycle hooks
 
 编排规则要保持最小可用：只定义下一步、顺序和停点，不额外发明新的流程层。
 
@@ -38,14 +39,16 @@
 
 1. 运行 `method-forge-feature-intake`
 2. 如果 `need_research=true`，先补研究输入
-3. 如果 `need_spec=false`，交给直接实现路径
-4. 如果 `need_spec=true`，交给 `spec-flow`
-5. 无论走哪条实现路径，收尾都要进 `verify-and-memory`
+3. 如果 `suggested_path=diagnose-first`，先运行 `method-forge-diagnose`
+4. 如果 `need_spec=false`，交给直接实现路径
+5. 如果 `need_spec=true`，交给 `spec-flow`
+6. 无论走哪条实现路径，收尾都要进 `verify-and-memory`
 
 停止条件：
 
 - 请求仍然不清晰，无法得出稳定 `next_step`
 - 存在需要用户确认的高风险前提
+- bug / regression 请求无法建立反馈环，且缺少继续诊断所需证据
 
 ## 4. `spec-flow`
 
@@ -90,6 +93,7 @@
 可选扩展：
 
 - 高风险改动可先运行 `method-forge-code-review`
+- bug、失败、性能退化或不稳定行为可先运行 `method-forge-diagnose`
 - 当 `verify.md.memory_candidate=yes` 时，可再运行 `method-forge-memory-promote`
 
 ## 6. 最新环境修正
@@ -98,5 +102,6 @@
 
 - 会话内流程编排命名为 `orchestrations`
 - `automations` 专指 Codex App 原生后台能力
+- `lifecycle hooks` 专指 Codex 原生 session / prompt / permission / tool-use 事件触发能力
 
 因此，任何历史文档里把这两者混用的地方，都应在当前实现中按此规则修正。

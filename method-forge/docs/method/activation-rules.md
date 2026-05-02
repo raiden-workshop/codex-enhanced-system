@@ -70,6 +70,7 @@ activation rules 用于把用户的自然语言意图自动映射到 `method-for
 这并不意味着重做第二套调度器：
 
 - 监听者仍然是 Codex App 原生 heartbeat / background automation
+- lifecycle hooks 只负责即时事件触发，不负责跨回合续跑
 - `method-forge-execute` 仍然是默认内层执行引擎
 - 只有当用户明确说不要自动、先别写代码、只做方案，或当前风险过高必须人工确认时，才降级出 autonomous
 
@@ -127,6 +128,7 @@ activation rules 用于把用户的自然语言意图自动映射到 `method-for
 - “开始落地代码 / 开始实现 / 开始写代码” 默认进入 `method-forge` autonomous mode
 - autonomous 的监听者使用 Codex 原生 heartbeat automation
 - autonomous 的默认执行引擎为 `method-forge-execute`
+- lifecycle hooks 不替代 heartbeat automation；如需使用，也只作为 Codex 原生即时事件触发面
 - “不要自动 / 先别写代码 / 只做方案” 等短语可以降级出 autonomous
 
 ## 7. 推荐写法
@@ -136,6 +138,7 @@ activation rules 用于把用户的自然语言意图自动映射到 `method-for
 ```text
 当用户表达“开始落地代码”“开始实现”“开始写代码”“继续写代码”等实现意图时，默认进入 `method-forge` autonomous mode，除非用户明确要求不要自动、先别写代码或只做方案。
 autonomous mode 的监听者使用 Codex 原生 heartbeat automation，内层默认执行引擎为 `method-forge-execute`。
+lifecycle hooks 只用于 Codex 原生即时事件触发，不用于替代 autonomous heartbeat。
 ```
 
 ## 8. 配套文件

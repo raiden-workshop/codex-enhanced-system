@@ -11,6 +11,8 @@
 
 它不重复实现 Codex App 已经原生提供的工程能力。
 
+仓库级原生优先边界以根目录 [README.md](../README.md) 里的 `Native-first compatibility map` 为准；本文档只细化 `method-forge` 自己的方法层职责。
+
 使用 `method-forge` 时，同样保持这套通用原则：先想清楚再写、简单优先、只做必要改动、先定义成功标准再验证。
 
 ## 负责范围
@@ -18,6 +20,7 @@
 - 请求 intake 与任务分流
 - 复杂任务的 `spec -> plan -> tasks` 文档流
 - `plan-review` 与 `verify` 质量门
+- bug / regression 诊断补足
 - 研究结果、知识库、memory candidate 的接入口边界
 - 面向新 worker 的 Markdown 方法文档、模板与 skill 契约
 
@@ -28,6 +31,11 @@
 - diff review 面板
 - git / commit / PR 基础集成
 - background automations
+- lifecycle hooks / hook runner
+- plugins / app integrations / MCP 分发
+- Computer Use
+- built-in image generation
+- native memories
 - sandbox / approvals / trust 配置
 - skill 加载机制
 - memory system 本体改造
@@ -95,10 +103,14 @@ route-request
 - 流程说明：[docs/method/workflow.md](docs/method/workflow.md)
 - Skill 契约：[docs/method/skill-contracts.md](docs/method/skill-contracts.md)
 - Orchestration 规则：[docs/method/orchestration-rules.md](docs/method/orchestration-rules.md)
+- 仓库级兼容图：[../README.md#native-first-compatibility-map](../README.md#native-first-compatibility-map)
 - Codex 原生边界：[docs/method/codex-native-boundaries.md](docs/method/codex-native-boundaries.md)
 - 单入口执行 skill：[skills/method-forge-execute/SKILL.md](skills/method-forge-execute/SKILL.md)
 - autonomous 执行扩展：[docs/method/autonomous-execution.md](docs/method/autonomous-execution.md)
 - 自动激活规则：[docs/method/activation-rules.md](docs/method/activation-rules.md)
+- 外部 workflow 适配 preset：[docs/method/workflow-presets.md](docs/method/workflow-presets.md)
+- 输出预算策略：[docs/method/output-budget-policy.md](docs/method/output-budget-policy.md)
+- 诊断补足 skill：[skills/method-forge-diagnose/SKILL.md](skills/method-forge-diagnose/SKILL.md)
 - autonomous 入口 skill：[skills/method-forge-autonomous-execution/SKILL.md](skills/method-forge-autonomous-execution/SKILL.md)
 - 恢复规则：[docs/method/resume-rules.md](docs/method/resume-rules.md)
 - 防死循环规则：[docs/method/loop-guard-rules.md](docs/method/loop-guard-rules.md)
@@ -130,6 +142,7 @@ route-request
 
 - 可选 `method-forge-code-review`
 - 可选 `method-forge-memory-promote`
+- 可选 `method-forge-diagnose`
 - failure / rework 规则
 - 模板 lint 规则
 - workflow health check
@@ -141,6 +154,7 @@ route-request
 - `run-state.md` 与 cycle report
 - resume / loop guard 规则
 - 默认自动调用 `method-forge-execute`
+- lifecycle hooks 仍归 Codex 原生；`method-forge` 只说明何时适合挂接，不自动安装 hook 配置
 
 如果你希望在每个 worker 里支持“开始落地代码 / 开始实现 / 继续写代码”等实现意图默认进入 autonomous mode，或恢复既有 autonomous run，还需要：
 
@@ -154,3 +168,9 @@ route-request
 - `package-index.md` 模板
 - adoption checklist 模板
 - minimal change package preset 入口
+
+当前也已补上外部 workflow 研究的最小适配方案：
+
+- 只吸收 `rtk`、`Archon`、Claude skills 类项目的方法层思路
+- 不安装外部项目，不启用全局 hook，不引入新 runner
+- Codex App 原生 subagents、worktrees、git/PR、hooks、automations 和 skill loading 继续优先使用原生能力

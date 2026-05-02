@@ -1,3 +1,8 @@
+---
+name: method-forge-verify-change
+description: Use when validating that a change truly met its goal and whether it deserves a memory candidate.
+---
+
 # method-forge-verify-change
 
 ## Purpose
@@ -32,8 +37,10 @@
 1. 对照 spec 或 intake 检查行为是否达标。
 2. 记录测试结果，而不是只写“应该没问题”。
 3. 评估回归风险和文档同步状态。
-4. 判断是否存在稳定、可复用、可压缩的 memory candidate。
-5. 给出 `final_status`，只能基于证据，不基于乐观预期。
+4. 检查实际改动是否都能追溯到用户目标，且没有覆盖 Codex 原生能力。
+5. 长输出验证遵循 [output-budget-policy.md](../../docs/method/output-budget-policy.md)：摘要可以压缩，但必须保留可追溯证据。
+6. 判断是否存在稳定、可复用、可压缩的 memory candidate。
+7. 给出 `final_status`，只能基于证据，不基于乐观预期。
 
 ## Completion Standard
 
@@ -45,6 +52,7 @@
 - 不因为改动是文档类就跳过 verify
 - 不直接写长期 memory
 - 如果测试未运行，要明确写出未验证项和残余风险
+- 不把压缩后的命令摘要当成唯一验证证据
 
 ## Handoff
 

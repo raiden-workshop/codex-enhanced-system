@@ -29,6 +29,20 @@ Use this check to verify the smallest practical result, and call out any assumpt
 
 - 
 
+## Traceability Check
+
+- Every changed file maps to the user goal:
+- Unrelated edits avoided:
+- Existing Codex-native capability preserved:
+
+## Output Evidence
+
+- command:
+- status:
+- summary:
+- raw evidence:
+- missing:
+
 ## Documentation Sync
 
 - 

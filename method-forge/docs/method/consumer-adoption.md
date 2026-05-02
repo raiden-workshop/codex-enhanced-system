@@ -62,6 +62,7 @@
 5. 高风险任务按需追加 `code-review` 和 `memory-candidate`。
 6. 定期用 `workflow-health-report.md` 做人工健康检查。
 7. 若采用默认行为，则在用户表达“开始落地代码”“开始实现”“继续写代码”等实现意图时启用 `runtime/run-state.md` 和 Codex App 原生 heartbeat automation。
+8. 如需 lifecycle hooks，只把它们作为 Codex 原生即时事件触发面；不要让消费方安装第二套 hook runner。
 
 若你希望支持默认 implementation-intent -> autonomous 触发，或恢复既有 autonomous run，还需要：
 
@@ -105,6 +106,7 @@
 - `memory-candidate.md` 只整理候选，不直接写 memory
 - 会话内流程继续统一叫 `orchestrations`
 - autonomous 模式下，heartbeat 应默认使用 `method-forge-execute`
+- lifecycle hooks 不替代 heartbeat；只用于即时事件前后处理
 - 普通实现意图默认可以进入后台 automation；若消费方不希望自动，必须显式声明降级短语
 
 ## 7. 入口文件

@@ -10,6 +10,7 @@
 - 不直接写长期 memory
 - 不改造 knowledge base 本体
 - 不包装 Codex 原生工程能力
+- 不实现 Codex 原生 lifecycle hooks 的替代 runner
 
 实现 skills 时保持规则简单、稳定、可验证，只补缺口，不扩成新的复杂约定。
 
@@ -42,6 +43,12 @@
 | --- | --- | --- | --- | --- |
 | `method-forge-code-review` | 对实现做正确性与回归风险审查 | 改动结果、前序文档、测试结果 | `code-review.md` | 决定是否先修复再 verify |
 | `method-forge-memory-promote` | 整理 memory 候选 | `verify.md`、可选 review 结论 | `memory-candidate.md` | 交给既有 memory 流程人工处理 |
+
+## 2.2 诊断补足技能
+
+| Skill | 作用 | 主要输入 | 主要输出 | 下一步门 |
+| --- | --- | --- | --- | --- |
+| `method-forge-diagnose` | 在 bug / regression 修复前建立反馈环和根因判断 | 用户症状、`intake.md`、日志、测试输出、仓库上下文 | `diagnosis.md` | 根因明确后进入实现；需要设计调整时回到 spec-flow；无法复现时停在 blocked |
 
 ## 3. 单个 Skill 的强约束
 
@@ -93,6 +100,7 @@
 - 当用户表达“开始落地代码”“开始实现”“开始写代码”“继续写代码”等实现意图时默认启用；显式要求 automation / autonomous / heartbeat 续跑或恢复既有 autonomous run 时也启用
 - 必须把 `method-forge-execute` 设为默认内层执行引擎
 - 必须维护 `run-state.md` 并执行 loop guard
+- 不得把 lifecycle hooks 当作 heartbeat 的替代品；hooks 只适合即时事件前后处理
 
 ### 3.7 `method-forge-code-review`
 
@@ -106,6 +114,14 @@
 - 必须只保留稳定、可复用、可压缩的最小结论
 - 输出始终保持 `candidate-only`，不得直接写 memory
 
+### 3.9 `method-forge-diagnose`
+
+- 必须优先建立反馈环；不能直接猜测式修复
+- 必须区分用户描述的症状、实际复现结果和根因判断
+- 假设必须可证伪，并至少写明预测
+- 临时插桩必须记录前缀和清理状态
+- 无法复现时必须停止并列出所需证据
+
 ## 4. 与实现层的交接
 
 `method-forge` 不把“implement”做成独立 skill。
@@ -117,3 +133,8 @@
 - `method-forge-code-review`
 - `method-forge-verify-change`
 - `method-forge-memory-promote`
+
+当任务是 bug、失败、性能退化或不稳定行为时，推荐先接入：
+
+- `method-forge-diagnose`
+- `method-forge-verify-change`

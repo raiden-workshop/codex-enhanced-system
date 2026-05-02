@@ -1,3 +1,8 @@
+---
+name: method-forge-code-review
+description: Use when doing a focused quality review of a completed implementation before verification.
+---
+
 # method-forge-code-review
 
 ## Purpose

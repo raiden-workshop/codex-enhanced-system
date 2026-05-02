@@ -1,6 +1,6 @@
 # memory system
 
-这是 Codex App 全局记忆系统的独立工作区。
+这是 `codex-enhanced-system` 里的 Codex App 全局记忆系统子工作区。
 
 这里专门维护：
 
@@ -8,6 +8,16 @@
 - 记忆提取、压缩、Dream 整理的实现
 - `global / workspace / worker-run` 作用域规则
 - 记忆系统相关测试与 QA 文档
+
+仓库级原生优先边界以根目录 [README.md](../README.md) 里的 `Native-first compatibility map` 为准。
+
+这里维护的是受治理的长期记忆层 `~/.codex/memory/`，不是 Codex App 原生 memories 的实现本体。原生 memories 使用 `~/.codex/memories/`，现在默认承接个人偏好、常见修正和便捷 recall；repo 规则、项目事实、可复用参考和晋升治理仍以本工作区维护的 memory system 为准。
+
+当前默认边界：
+
+- 原生 `~/.codex/memories/` 负责：个人偏好、常见修正、便捷 recall。
+- 本工作区的 `~/.codex/memory/` 负责：`project`、`reference`、`open_loop` 以及治理、归档、Dream、promotion。
+- 当原生 memories 开启时，旧系统默认关闭 `user` 和 `feedback` 类型，避免双写和重复注入。
 
 这套工作区默认遵循的写作与实现原则是：
 
@@ -28,9 +38,13 @@
 
 - `~/.codex/memory/`
 
-当前工作区对应的 workspace 记忆节点是：
+原生 Codex memories 不在本工作区直接维护：
 
-- `~/.codex/memory/workspaces/memory-system-<workspace-key>/`
+- `~/.codex/memories/`
+
+当前 workspace 对应的记忆节点需要先通过 `~/.codex/memory/workspaces/index.json` 按 workspace path 查找；节点形态是：
+
+- `~/.codex/memory/workspaces/<mapped-workspace-key>/`
 
 全局运行入口是：
 

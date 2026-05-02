@@ -2,6 +2,8 @@
 
 - This repository is the consolidated home for the Codex enhancement stack.
 - Treat Codex App native capabilities as the source of truth when they overlap with local workflows.
+- Let Codex App own subagents, worktrees, diff/Git/PR flows, automations, lifecycle hooks, plugins, skill loading, Computer Use, image generation, and native memories; this repo adds method and governed memory layers on top.
+- Keep mandatory repo rules in `AGENTS.md` or checked-in docs; treat native memories as optional recall, not as the authoritative repo policy source.
 - Read the relevant subdirectory `AGENTS.md` before making changes in `memory-system/` or `method-forge/`.
 - If the task is about the knowledge base, switch to `/Users/wz/project/knowledge-base` and read that repo's `AGENTS.md`.
 - Keep repository-local docs aligned with the current merged structure and avoid references to retired standalone repo paths.

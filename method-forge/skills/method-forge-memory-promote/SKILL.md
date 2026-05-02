@@ -1,3 +1,8 @@
+---
+name: method-forge-memory-promote
+description: Use when promoting a verified memory candidate into a more stable memory-candidate.md.
+---
+
 # method-forge-memory-promote
 
 ## Purpose

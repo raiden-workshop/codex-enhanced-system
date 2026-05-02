@@ -1,3 +1,8 @@
+---
+name: method-forge-task-breakdown
+description: Use when splitting an approved plan into small executable tasks.md items.
+---
+
 # method-forge-task-breakdown
 
 ## Purpose

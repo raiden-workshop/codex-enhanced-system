@@ -24,6 +24,7 @@ Execution rules:
 - If progress is made, update `run-state.md`, `package-index.md`, and write a new cycle report under `runtime/reports/`.
 - If no safe progress can be made, set status to `blocked`, `waiting-human`, or `waiting-external` with a concrete `stop_reason`.
 - Set status to `completed` only when the top-level task is actually finished, not when a single sub-slice happens to complete.
+- Treat Codex lifecycle hooks as immediate event triggers only; do not use this heartbeat prompt to install, rewrite, or depend on hook configuration.
 
 Loop guard:
 - Max step retries: 3
@@ -35,5 +36,6 @@ Never:
 - Bypass `verify`
 - Directly write long-term memory
 - Rebuild a second automation platform
+- Rebuild or silently install a lifecycle hook runner
 - Ignore repeated identical errors and keep retrying
 ```

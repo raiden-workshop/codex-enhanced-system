@@ -1,3 +1,8 @@
+---
+name: method-forge-plan-review
+description: Use when reviewing plan.md for risk, gaps, and ordering before tasks are split.
+---
+
 # method-forge-plan-review
 
 ## Purpose
@@ -25,7 +30,9 @@
 1. 先检查计划是否真正覆盖了 spec 的目标与约束。
 2. 列出 blocking findings，再看缺失测试和歧义。
 3. 检查是否有过度设计或顺序错误。
-4. 给出明确结论：`approved` 或 `needs-revision`。
+4. 检查是否重复实现了 Codex App 原生能力；如有，要求回退到原生能力优先。
+5. 检查每个计划改动是否能追溯到用户目标，隐含假设是否已经写明。
+6. 给出明确结论：`approved` 或 `needs-revision`。
 
 ## Completion Standard
 
@@ -37,6 +44,7 @@
 - Findings 必须优先于摘要
 - 不因为“文档已经很完整”就跳过缺失测试检查
 - 不把小问题夸大成阻塞，也不把阻塞问题写成建议项
+- 不批准会引入外部 runner、hook、worktree 管理或 PR 平台替代物的方案
 
 ## Handoff
 

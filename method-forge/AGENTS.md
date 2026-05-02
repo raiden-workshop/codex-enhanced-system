@@ -1,8 +1,9 @@
 # method-forge Rules
 
 - 开工前先读共享 memory guides；重要工作完成后运行 `python3 ~/.codex/scripts/refresh_memory.py --workspace-root "$(git rev-parse --show-toplevel)"`。
-- 本 workspace 只实现方法层，不重复实现 Codex App 原生的 multi-agent、worktrees、diff review、git/PR、background automations、sandbox/approvals、skill loading。
+- 本 workspace 只实现方法层，不重复实现 Codex App 原生的 multi-agent、worktrees、diff review、git/PR、background automations、lifecycle hooks、plugins / app integrations / MCP 分发、Computer Use、built-in image generation、native memories、sandbox/approvals、skill loading。
 - 会话内流程编排统一叫 `orchestrations`；`automations` 只指 Codex App 原生后台任务。
+- `lifecycle hooks` 只指 Codex 原生 session / prompt / permission / tool-use 事件触发面；`method-forge` 不实现 hook runner。
 - 本文件只放硬规则；解释性内容一律放到 `docs/method/`。
 - 所有非闲聊、非纯问答请求默认先产出 `intake.md`。
 - 中等及以上复杂度、跨文件、边界不清或风险较高的请求，必须先走 `spec -> plan -> plan-review -> tasks` 再进入实现。
@@ -23,6 +24,7 @@
 
 - 当用户表达“开始落地代码”“开始实现”“开始写代码”“继续写代码”“进入实现阶段”等实现意图时，默认进入 `method-forge` autonomous mode，除非用户明确要求不要自动、先别写代码或只做方案。
 - autonomous mode 使用 Codex 原生 heartbeat / background automation 作为监听者，不重做第二套调度器。
+- lifecycle hooks 可用于即时事件观察或轻量校验，但不能替代 heartbeat / background automation 的跨回合续跑职责。
 - autonomous mode 的内层默认执行引擎是 `method-forge-execute`；在 autonomous 已经启动后，后续续跑周期不需要用户再次指定“按 method-forge 执行”。
 - 若当前任务还没有标准变更包，先建立 `docs/specs/<change-id>/`、`package-index.md` 和 `runtime/run-state.md`。
 - 若已有需求或设计草稿，先由 `method-forge-execute` 归一化为 `intake/spec/plan/tasks`，再进入实现。
