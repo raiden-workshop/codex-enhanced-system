@@ -23,6 +23,7 @@ docs/specs/<change-id>/
 ├── spec.md
 ├── plan.md
 ├── plan-review.md
+├── diagnosis.md
 ├── tasks.md
 └── verify.md
 ```
@@ -36,6 +37,7 @@ docs/specs/<change-id>/
 
 - [docs/method/consumer-adoption.md](consumer-adoption.md)
 - [docs/presets/minimal-change-package/README.md](../presets/minimal-change-package/README.md)
+- [docs/method/workflow-presets.md](workflow-presets.md)
 
 ## 3. 主流程
 
@@ -83,6 +85,23 @@ feature-intake
 - 明确且低风险的文档改动
 - 不需要复杂设计和拆任务的请求
 
+### 3.3.5 诊断优先流
+
+bug、失败、性能退化或不稳定行为优先走诊断路径：
+
+```text
+feature-intake
+-> diagnose
+-> implement or spec-flow
+-> verify-change
+```
+
+适用场景：
+
+- 当前没有可靠复现路径
+- 可见症状可能不是根因层
+- 修复前需要先明确测试缝隙或正确修复层
+
 ### 3.4 `v1.5` 可选增强流
 
 高风险或高复用价值任务可以在主流程后挂接扩展质量门：
@@ -98,6 +117,7 @@ implement
 
 - `code-review` 不是每次必跑，但高风险改动推荐启用
 - `memory-promote` 只在 `verify.md` 已经认定 candidate 合格时运行
+- 输出较长的验证命令遵循 [output-budget-policy.md](output-budget-policy.md)，先压缩对话内容，但保留可追溯证据
 
 ## 4. 每个阶段的进入与退出条件
 
@@ -146,6 +166,8 @@ implement
 
 - 明确 `approved` 或 `needs-revision`
 - 明确遗漏测试、过度设计、顺序问题和歧义
+- 明确是否误重复了 Codex 原生能力
+- 明确计划改动是否能追溯到用户目标
 
 ### 4.5 Tasks
 
@@ -170,6 +192,19 @@ implement
 - 明确测试是否达标
 - 明确文档是否已同步
 - 明确是否只够资格成为 memory candidate
+- 明确长输出验证证据是否可追溯
+
+### 4.6.5 Diagnosis
+
+进入条件：
+
+- `intake.md` 标记 `suggested_path=diagnose-first`
+
+退出条件：
+
+- 已建立反馈环或说明阻塞原因
+- 已记录可证伪假设和证据
+- 已明确根因、正确修复层和回归测试计划
 
 ### 4.7 Code Review
 

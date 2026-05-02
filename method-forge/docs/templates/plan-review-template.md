@@ -14,6 +14,18 @@ Keep the review focused on scope clarity, ordering, and avoidable complexity bef
 
 - 
 
+## Native Capability Check
+
+- Codex-native capability reused:
+- Proposed duplicate platform or runner:
+- Required adjustment:
+
+## Traceability Check
+
+- Assumptions stated:
+- Ambiguous interpretations resolved:
+- Every planned change maps to user goal:
+
 ## Ambiguities
 
 - 

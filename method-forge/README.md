@@ -20,6 +20,7 @@
 - 请求 intake 与任务分流
 - 复杂任务的 `spec -> plan -> tasks` 文档流
 - `plan-review` 与 `verify` 质量门
+- bug / regression 诊断补足
 - 研究结果、知识库、memory candidate 的接入口边界
 - 面向新 worker 的 Markdown 方法文档、模板与 skill 契约
 
@@ -107,6 +108,9 @@ route-request
 - 单入口执行 skill：[skills/method-forge-execute/SKILL.md](skills/method-forge-execute/SKILL.md)
 - autonomous 执行扩展：[docs/method/autonomous-execution.md](docs/method/autonomous-execution.md)
 - 自动激活规则：[docs/method/activation-rules.md](docs/method/activation-rules.md)
+- 外部 workflow 适配 preset：[docs/method/workflow-presets.md](docs/method/workflow-presets.md)
+- 输出预算策略：[docs/method/output-budget-policy.md](docs/method/output-budget-policy.md)
+- 诊断补足 skill：[skills/method-forge-diagnose/SKILL.md](skills/method-forge-diagnose/SKILL.md)
 - autonomous 入口 skill：[skills/method-forge-autonomous-execution/SKILL.md](skills/method-forge-autonomous-execution/SKILL.md)
 - 恢复规则：[docs/method/resume-rules.md](docs/method/resume-rules.md)
 - 防死循环规则：[docs/method/loop-guard-rules.md](docs/method/loop-guard-rules.md)
@@ -138,6 +142,7 @@ route-request
 
 - 可选 `method-forge-code-review`
 - 可选 `method-forge-memory-promote`
+- 可选 `method-forge-diagnose`
 - failure / rework 规则
 - 模板 lint 规则
 - workflow health check
@@ -163,3 +168,9 @@ route-request
 - `package-index.md` 模板
 - adoption checklist 模板
 - minimal change package preset 入口
+
+当前也已补上外部 workflow 研究的最小适配方案：
+
+- 只吸收 `rtk`、`Archon`、Claude skills 类项目的方法层思路
+- 不安装外部项目，不启用全局 hook，不引入新 runner
+- Codex App 原生 subagents、worktrees、git/PR、hooks、automations 和 skill loading 继续优先使用原生能力

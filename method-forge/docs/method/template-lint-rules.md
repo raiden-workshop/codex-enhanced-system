@@ -58,36 +58,43 @@ lint 也遵循同一原则：检查最小必需项，避免把规则写得比模
 - 若 `test_check=not-run`，必须补残余风险说明
 - 若 `memory_candidate=yes`，必须解释为什么稳定且可复用
 
-### 3.7 `code-review.md`
+### 3.7 `diagnosis.md`
+
+- 必须给出反馈环状态
+- 假设必须有预测和状态
+- 若无法复现，必须给出需要的证据或环境
+- 若有临时插桩，必须记录清理状态
+
+### 3.8 `code-review.md`
 
 - 若有 findings，必须按严重性排序
 - 若无 findings，也要写清残余风险或覆盖盲区
 
-### 3.8 `memory-candidate.md`
+### 3.9 `memory-candidate.md`
 
 - 必须能追溯到来源 `verify.md`
 - 必须说明建议作用域与不直接写 memory 的原因
 - 不能把一次性任务细节伪装成长期规律
 
-### 3.9 `package-index.md`
+### 3.10 `package-index.md`
 
 - 必须覆盖当前变更包的主要产物状态
 - 只做导航，不重复每个文档的全文
 - `next_step` 必须和当前状态一致
 
-### 3.10 `workflow-health-report.md`
+### 3.11 `workflow-health-report.md`
 
 - 必须给出 `overall_status`、`strongest_signal`、`weakest_signal`
 - `actions` 必须可执行，不能只有口号
 - 若判定为 `needs-intervention`，必须说明最弱信号和修复方向
 
-### 3.11 `run-state.md`
+### 3.12 `run-state.md`
 
 - `status` 必须使用允许的字面量
 - `current_step`、`next_action` 和 loop guard 计数要保持同步
 - 若状态为 `blocked` 或 `waiting-human`，必须有 `stop_reason`
 
-### 3.12 autonomous cycle report
+### 3.13 autonomous cycle report
 
 - 必须说明 `status_before` 与 `status_after`
 - 必须说明本轮是否真的有进展

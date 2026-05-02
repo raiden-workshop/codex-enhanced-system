@@ -18,6 +18,7 @@ Keep the index small and explicit so the package can be understood at a glance, 
 | spec | `todo` / `done` / `not-applicable` | |
 | plan | `todo` / `done` / `not-applicable` | |
 | plan-review | `todo` / `done` / `not-applicable` | |
+| diagnosis | `todo` / `done` / `not-applicable` | |
 | tasks | `todo` / `done` / `not-applicable` | |
 | implementation | `todo` / `done` / `not-applicable` | |
 | verify | `todo` / `done` / `not-applicable` | |

@@ -18,7 +18,7 @@ Write the intake as the smallest clear decision point: confirm the scope, choose
 | need_spec | `true` / `false` |
 | need_research | `true` / `false` |
 | need_memory_lookup | `true` / `false` |
-| suggested_path | `direct-implement` / `research-first` / `spec-flow` |
+| suggested_path | `direct-implement` / `diagnose-first` / `research-first` / `spec-flow` |
 | next_step | |
 
 ## Goal

@@ -36,12 +36,13 @@ description: Use when the user says phrases like "按method-forge方式执行", 
 1. 读取用户需求与已有设计材料，先建立或更新当前变更包。
 2. 默认在当前 workspace 使用 `docs/specs/<date>-<slug>/` 作为变更包目录，并先创建或更新 `package-index.md`。
 3. 按 [method-forge-feature-intake](../method-forge-feature-intake/SKILL.md) 产出 `intake.md`，判断轻任务还是复杂任务。
-4. 若 `need_spec=true`，按 [spec-flow](../../orchestrations/spec-flow/README.md) 归一化已有设计材料，补齐 `spec.md`、`plan.md`、`plan-review.md`、`tasks.md`。
-5. 若用户已有设计文档，优先映射与补缺，不机械复制原文。
-6. 若实现上下文足够，直接在同一 worker 里执行任务。
-7. 高风险改动按需追加 [method-forge-code-review](../method-forge-code-review/SKILL.md)。
-8. 完成后统一走 [verify-and-memory](../../orchestrations/verify-and-memory/README.md)，产出 `verify.md`。
-9. 若 `verify.md` 判定存在稳定候选，再按 [method-forge-memory-promote](../method-forge-memory-promote/SKILL.md) 产出 `memory-candidate.md`。
+4. 若 `suggested_path=diagnose-first`，先按 [method-forge-diagnose](../method-forge-diagnose/SKILL.md) 建立反馈环和根因判断，再决定直接实现或回到 spec-flow。
+5. 若 `need_spec=true`，按 [spec-flow](../../orchestrations/spec-flow/README.md) 归一化已有设计材料，补齐 `spec.md`、`plan.md`、`plan-review.md`、`tasks.md`。
+6. 若用户已有设计文档，优先映射与补缺，不机械复制原文。
+7. 若实现上下文足够，直接在同一 worker 里执行任务。
+8. 高风险改动按需追加 [method-forge-code-review](../method-forge-code-review/SKILL.md)。
+9. 完成后统一走 [verify-and-memory](../../orchestrations/verify-and-memory/README.md)，产出 `verify.md`。
+10. 若 `verify.md` 判定存在稳定候选，再按 [method-forge-memory-promote](../method-forge-memory-promote/SKILL.md) 产出 `memory-candidate.md`。
 
 ## Outputs
 
@@ -74,6 +75,7 @@ description: Use when the user says phrases like "按method-forge方式执行", 
 - 不要求用户先手工写完标准化 md 再开始
 - 不要求用户切换到别的 worker 才能继续
 - 不把粗稿设计文档直接当作最终真相源
+- 不在缺少反馈环的 bug / regression 请求上跳过 diagnosis
 - 不直接写长期 memory
 - 不重复实现 Codex 原生 multi-agent、git/PR、automations、sandbox
 
